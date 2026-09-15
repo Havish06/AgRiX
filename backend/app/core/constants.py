@@ -1,0 +1,29 @@
+from enum import Enum
+
+
+class RiskCategory(str, Enum):
+    LOW = "Low"
+    MODERATE = "Moderate"
+    HIGH = "High"
+    VERY_HIGH = "Very High"
+
+
+RISK_THRESHOLDS = {
+    RiskCategory.LOW: (0.00, 0.24),
+    RiskCategory.MODERATE: (0.25, 0.49),
+    RiskCategory.HIGH: (0.50, 0.74),
+    RiskCategory.VERY_HIGH: (0.75, 1.00),
+}
+
+DEFAULT_CONFIDENCE_LEVEL = 0.95
+DEFAULT_RANDOM_SEED = 42
+MIN_OBSERVATIONS_FOR_REGRESSION = 30
+MAX_MISSING_FRACTION = 0.1
+MIN_YIELD_T_HA = 0.0
+MAX_YIELD_T_HA = 20.0
+MIN_RAINFALL_MM = 0.0
+MAX_RAINFALL_MM = 5000.0
+MIN_TEMPERATURE_C = -50.0
+MAX_TEMPERATURE_C = 60.0
+SOIL_MOISTURE_MIN = 0.0
+SOIL_MOISTURE_MAX = 1.0

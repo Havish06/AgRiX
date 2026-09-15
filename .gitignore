@@ -1,0 +1,100 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.coverage.*
+coverage.xml
+*.cover
+.hypothesis/
+
+# Build
+dist/
+build/
+*.egg-info/
+.next/
+out/
+*.tsbuildinfo
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Data
+data/raw/
+data/processed/
+data/external/
+*.csv
+*.parquet
+*.feather
+*.h5
+*.hdf5
+*.nc
+*.grib
+
+# Models
+models/
+*.pkl
+*.joblib
+*.onnx
+*.pt
+*.pth
+*.h5
+
+# MLflow
+mlruns/
+
+# Wandb
+wandb/
+
+# Secrets
+*.pem
+*.key
+*.crt
+.secrets/
+
+# Kiro
+.kiro/local/
+
+# Temporary
+tmp/
+temp/
+*.tmp
+*.bak
+
+# Environment
+.env
+.env.*
+!.env.example

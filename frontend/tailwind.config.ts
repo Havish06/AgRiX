@@ -1,0 +1,61 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './features/**/*.{js,ts,jsx,tsx,mdx}',
+    './hooks/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        background: 'var(--color-background)',
+        surface: 'var(--color-surface)',
+        'surface-elevated': 'var(--color-surface-elevated)',
+        text: 'var(--color-text)',
+        'text-muted': 'var(--color-text-muted)',
+        'text-light': 'var(--color-text-light)',
+        primary: 'var(--color-primary)',
+        'primary-hover': 'var(--color-primary-hover)',
+        'primary-light': 'var(--color-primary-light)',
+        olive: 'var(--color-olive)',
+        charcoal: 'var(--color-charcoal)',
+        brown: 'var(--color-brown)',
+        'risk-low': 'var(--color-risk-low)',
+        'risk-moderate': 'var(--color-risk-moderate)',
+        'risk-high': 'var(--color-risk-high)',
+        'risk-very-high': 'var(--color-risk-very-high)',
+        border: 'var(--color-border)',
+        'border-strong': 'var(--color-border-strong)',
+      },
+      boxShadow: {
+        inset: 'var(--shadow-inset)',
+        raised: 'var(--shadow-raised)',
+        deep: 'var(--shadow-deep)',
+      },
+      transitionDuration: {
+        fast: 'var(--transition-fast)',
+        normal: 'var(--transition-normal)',
+        slow: 'var(--transition-slow)',
+      },
+      fontFamily: {
+        serif: ['var(--font-serif)', 'Georgia', 'serif'],
+        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-mono)', 'monospace'],
+      },
+      fontSize: {
+        'display-xl': ['clamp(2.5rem, 5vw, 4rem)', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        'display-lg': ['clamp(2rem, 4vw, 3rem)', { lineHeight: '1.2', letterSpacing: '-0.01em' }],
+        'display-md': ['clamp(1.5rem, 3vw, 2rem)', { lineHeight: '1.3' }],
+        'heading-lg': ['clamp(1.25rem, 2.5vw, 1.75rem)', { lineHeight: '1.3' }],
+        'heading-md': ['clamp(1.125rem, 2vw, 1.375rem)', { lineHeight: '1.4' }],
+        'heading-sm': ['clamp(1rem, 1.5vw, 1.125rem)', { lineHeight: '1.4' }],
+        'body-lg': ['1.125rem', { lineHeight: '1.6' }],
+        'body': ['1rem', { lineHeight: '1.6' }],
+        'body-sm': ['0.875rem', { lineHeight: '1.5' }],
+        'caption': ['0.75rem', { lineHeight: '1.5' }],
+      },
+    },
+  },
+  plugins: [],
+};
