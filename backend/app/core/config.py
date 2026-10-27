@@ -1,7 +1,7 @@
 from functools import lru_cache
-from typing import Annotated, Literal
+from typing import Literal
 
-from pydantic import Field, PostgresDsn
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -42,7 +42,6 @@ class Settings(BaseSettings):
     CDS_API_KEY: str = ""
     CDS_BASE_URL: str = "https://cds.climate.copernicus.eu/api/v2"
     ALPHA_VANTAGE_API_KEY: str = ""
-    QUANDL_API_KEY: str = ""
 
     # ML/Experiments
     MLFLOW_TRACKING_URI: str = "file:./mlruns"
@@ -70,7 +69,9 @@ class Settings(BaseSettings):
     RATE_LIMIT_WINDOW_SECONDS: int = 60
 
     # CORS
-    CORS_ORIGINS: Annotated[list[str], Field(default_factory=lambda: ["http://localhost:3000", "http://127.0.0.1:3000"])]
+    CORS_ORIGINS: list[str] = Field(
+        default_factory=lambda: ["http://localhost:3000", "http://127.0.0.1:3000"]
+    )
 
 
 @lru_cache

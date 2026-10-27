@@ -1,0 +1,1382 @@
+{
+  "yield__climate_only__mean_baseline": {
+    "registry_key": "yield__climate_only__mean_baseline",
+    "task": "yield",
+    "feature_set": "climate_only",
+    "model_id": "mean_baseline",
+    "version": "1.0.0",
+    "target": "yield_t_ha",
+    "features": [
+      "rainfall_gs_mm",
+      "temp_gs_c"
+    ],
+    "training_period": "<= 2014",
+    "validation_period": "2015-2019",
+    "test_period": "> 2019",
+    "seed": 42,
+    "n_train": 25,
+    "n_validation": 5,
+    "n_test": 5,
+    "validation_metrics": {
+      "mae": 2.1387319999999996,
+      "rmse": 2.174162346611678,
+      "r2": -29.93425917844774,
+      "n": 5
+    },
+    "test_metrics": {
+      "mae": 2.2734319999999997,
+      "rmse": 2.276845115554415,
+      "r2": -332.7937021287007,
+      "n": 5
+    },
+    "interval_metrics": {
+      "picp_95": 0.0,
+      "mpiw_95": 0.741582799999998,
+      "confidence_level": 0.95,
+      "method": "case bootstrap"
+    },
+    "feature_importance": [
+      {
+        "feature": "temp_gs_c",
+        "importance": 0.0
+      },
+      {
+        "feature": "rainfall_gs_mm",
+        "importance": 0.0
+      }
+    ],
+    "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/yield__climate_only__mean_baseline.pkl",
+    "trained_at": "2026-10-27T15:58:01.221199+00:00",
+    "limitations": [
+      "National-level aggregates; no sub-national or farm-level resolution.",
+      "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
+      "Few test years: interval coverage estimates are themselves uncertain.",
+      "Extrapolation beyond the observed climate range is unreliable.",
+      "Tree-based models cannot extrapolate the year trend beyond the training range."
+    ],
+    "synthetic_target": false
+  },
+  "yield__climate_only__linear": {
+    "registry_key": "yield__climate_only__linear",
+    "task": "yield",
+    "feature_set": "climate_only",
+    "model_id": "linear",
+    "version": "1.0.0",
+    "target": "yield_t_ha",
+    "features": [
+      "rainfall_gs_mm",
+      "temp_gs_c"
+    ],
+    "training_period": "<= 2014",
+    "validation_period": "2015-2019",
+    "test_period": "> 2019",
+    "seed": 42,
+    "n_train": 25,
+    "n_validation": 5,
+    "n_test": 5,
+    "validation_metrics": {
+      "mae": 1.9713683023675337,
+      "rmse": 2.01216619411723,
+      "r2": -25.496192855358313,
+      "n": 5
+    },
+    "test_metrics": {
+      "mae": 2.090759455492808,
+      "rmse": 2.0941030450542635,
+      "r2": -281.3626559355171,
+      "n": 5
+    },
+    "interval_metrics": {
+      "picp_95": 0.0,
+      "mpiw_95": 1.193107992331103,
+      "confidence_level": 0.95,
+      "method": "case bootstrap"
+    },
+    "feature_importance": [
+      {
+        "feature": "temp_gs_c",
+        "importance": 0.9339208552952186
+      },
+      {
+        "feature": "rainfall_gs_mm",
+        "importance": -0.0283649783915223
+      }
+    ],
+    "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/yield__climate_only__linear.pkl",
+    "trained_at": "2026-10-27T15:58:01.433585+00:00",
+    "limitations": [
+      "National-level aggregates; no sub-national or farm-level resolution.",
+      "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
+      "Few test years: interval coverage estimates are themselves uncertain.",
+      "Extrapolation beyond the observed climate range is unreliable.",
+      "Tree-based models cannot extrapolate the year trend beyond the training range."
+    ],
+    "synthetic_target": false
+  },
+  "yield__climate_only__ridge": {
+    "registry_key": "yield__climate_only__ridge",
+    "task": "yield",
+    "feature_set": "climate_only",
+    "model_id": "ridge",
+    "version": "1.0.0",
+    "target": "yield_t_ha",
+    "features": [
+      "rainfall_gs_mm",
+      "temp_gs_c"
+    ],
+    "training_period": "<= 2014",
+    "validation_period": "2015-2019",
+    "test_period": "> 2019",
+    "seed": 42,
+    "n_train": 25,
+    "n_validation": 5,
+    "n_test": 5,
+    "validation_metrics": {
+      "mae": 1.9870900296830865,
+      "rmse": 2.0265078568890633,
+      "r2": -25.875240751083812,
+      "n": 5
+    },
+    "test_metrics": {
+      "mae": 2.0985626364204486,
+      "rmse": 2.1016646445557,
+      "r2": -283.4055049396998,
+      "n": 5
+    },
+    "interval_metrics": {
+      "picp_95": 0.0,
+      "mpiw_95": 1.141571027005415,
+      "confidence_level": 0.95,
+      "method": "case bootstrap"
+    },
+    "feature_importance": [
+      {
+        "feature": "temp_gs_c",
+        "importance": 0.8885105634589536
+      },
+      {
+        "feature": "rainfall_gs_mm",
+        "importance": -0.01740879581183208
+      }
+    ],
+    "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/yield__climate_only__ridge.pkl",
+    "trained_at": "2026-10-27T15:58:01.629411+00:00",
+    "limitations": [
+      "National-level aggregates; no sub-national or farm-level resolution.",
+      "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
+      "Few test years: interval coverage estimates are themselves uncertain.",
+      "Extrapolation beyond the observed climate range is unreliable.",
+      "Tree-based models cannot extrapolate the year trend beyond the training range."
+    ],
+    "synthetic_target": false
+  },
+  "yield__climate_only__random_forest": {
+    "registry_key": "yield__climate_only__random_forest",
+    "task": "yield",
+    "feature_set": "climate_only",
+    "model_id": "random_forest",
+    "version": "1.0.0",
+    "target": "yield_t_ha",
+    "features": [
+      "rainfall_gs_mm",
+      "temp_gs_c"
+    ],
+    "training_period": "<= 2014",
+    "validation_period": "2015-2019",
+    "test_period": "> 2019",
+    "seed": 42,
+    "n_train": 25,
+    "n_validation": 5,
+    "n_test": 5,
+    "validation_metrics": {
+      "mae": 2.0540129666229587,
+      "rmse": 2.095895171223671,
+      "r2": -27.747156535564656,
+      "n": 5
+    },
+    "test_metrics": {
+      "mae": 2.3808673747835485,
+      "rmse": 2.3860660953524033,
+      "r2": -365.5861906898967,
+      "n": 5
+    },
+    "interval_metrics": {
+      "picp_95": 0.0,
+      "mpiw_95": 1.0574446745631179,
+      "confidence_level": 0.95,
+      "method": "case bootstrap"
+    },
+    "feature_importance": [
+      {
+        "feature": "rainfall_gs_mm",
+        "importance": -0.12518893775293236
+      },
+      {
+        "feature": "temp_gs_c",
+        "importance": -0.9073048701758524
+      }
+    ],
+    "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/yield__climate_only__random_forest.pkl",
+    "trained_at": "2026-10-27T15:58:59.685110+00:00",
+    "limitations": [
+      "National-level aggregates; no sub-national or farm-level resolution.",
+      "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
+      "Few test years: interval coverage estimates are themselves uncertain.",
+      "Extrapolation beyond the observed climate range is unreliable.",
+      "Tree-based models cannot extrapolate the year trend beyond the training range."
+    ],
+    "synthetic_target": false
+  },
+  "yield__climate_only__xgboost": {
+    "registry_key": "yield__climate_only__xgboost",
+    "task": "yield",
+    "feature_set": "climate_only",
+    "model_id": "xgboost",
+    "version": "1.0.0",
+    "target": "yield_t_ha",
+    "features": [
+      "rainfall_gs_mm",
+      "temp_gs_c"
+    ],
+    "training_period": "<= 2014",
+    "validation_period": "2015-2019",
+    "test_period": "> 2019",
+    "seed": 42,
+    "n_train": 25,
+    "n_validation": 5,
+    "n_test": 5,
+    "validation_metrics": {
+      "mae": 2.027468282623291,
+      "rmse": 2.072809543032,
+      "r2": -27.117362403512484,
+      "n": 5
+    },
+    "test_metrics": {
+      "mae": 2.3454492274475096,
+      "rmse": 2.4191075594464495,
+      "r2": -375.8092182589086,
+      "n": 5
+    },
+    "interval_metrics": {
+      "picp_95": 0.0,
+      "mpiw_95": 1.6977253746986392,
+      "confidence_level": 0.95,
+      "method": "case bootstrap"
+    },
+    "feature_importance": [
+      {
+        "feature": "temp_gs_c",
+        "importance": -8.604369138450034
+      },
+      {
+        "feature": "rainfall_gs_mm",
+        "importance": -9.097487817132128
+      }
+    ],
+    "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/yield__climate_only__xgboost.pkl",
+    "trained_at": "2026-10-27T15:59:08.093177+00:00",
+    "limitations": [
+      "National-level aggregates; no sub-national or farm-level resolution.",
+      "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
+      "Few test years: interval coverage estimates are themselves uncertain.",
+      "Extrapolation beyond the observed climate range is unreliable.",
+      "Tree-based models cannot extrapolate the year trend beyond the training range."
+    ],
+    "synthetic_target": false
+  },
+  "risk__finance_only__mean_baseline": {
+    "registry_key": "risk__finance_only__mean_baseline",
+    "task": "risk",
+    "feature_set": "finance_only",
+    "model_id": "mean_baseline",
+    "version": "1.0.0",
+    "target": "credit_stress_rate",
+    "features": [
+      "interest_rate_pct",
+      "debt_service_coverage",
+      "loan_exposure_musd",
+      "commodity_price_index",
+      "log_loan_exposure"
+    ],
+    "training_period": "<= 2015",
+    "validation_period": "2016-2020",
+    "test_period": "> 2020",
+    "seed": 42,
+    "n_train": 208,
+    "n_validation": 40,
+    "n_test": 40,
+    "validation_metrics": {
+      "mae": 0.09614002884615387,
+      "rmse": 0.11979550798114748,
+      "r2": -0.013280998024169266,
+      "n": 40
+    },
+    "test_metrics": {
+      "mae": 0.08617377884615385,
+      "rmse": 0.10588637256380438,
+      "r2": -0.09650552324812312,
+      "n": 40
+    },
+    "interval_metrics": {
+      "picp_95": 0.2,
+      "mpiw_95": 0.02998732331730769,
+      "confidence_level": 0.95,
+      "method": "case bootstrap"
+    },
+    "feature_importance": [
+      {
+        "feature": "log_loan_exposure",
+        "importance": 0.0
+      },
+      {
+        "feature": "commodity_price_index",
+        "importance": 0.0
+      },
+      {
+        "feature": "loan_exposure_musd",
+        "importance": 0.0
+      },
+      {
+        "feature": "debt_service_coverage",
+        "importance": 0.0
+      },
+      {
+        "feature": "interest_rate_pct",
+        "importance": 0.0
+      }
+    ],
+    "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/risk__finance_only__mean_baseline.pkl",
+    "trained_at": "2026-10-27T16:00:17.260558+00:00",
+    "limitations": [
+      "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
+      "Results must not be quoted as empirical default probabilities.",
+      "Climate enters through a small panel of state centroids.",
+      "Few test years: interval coverage estimates are themselves uncertain."
+    ],
+    "synthetic_target": true
+  },
+  "risk__finance_only__linear": {
+    "registry_key": "risk__finance_only__linear",
+    "task": "risk",
+    "feature_set": "finance_only",
+    "model_id": "linear",
+    "version": "1.0.0",
+    "target": "credit_stress_rate",
+    "features": [
+      "interest_rate_pct",
+      "debt_service_coverage",
+      "loan_exposure_musd",
+      "commodity_price_index",
+      "log_loan_exposure"
+    ],
+    "training_period": "<= 2015",
+    "validation_period": "2016-2020",
+    "test_period": "> 2020",
+    "seed": 42,
+    "n_train": 208,
+    "n_validation": 40,
+    "n_test": 40,
+    "validation_metrics": {
+      "mae": 0.08509049568349021,
+      "rmse": 0.10392958189538642,
+      "r2": 0.23734663321906924,
+      "n": 40
+    },
+    "test_metrics": {
+      "mae": 0.0799973196678763,
+      "rmse": 0.10032707523140597,
+      "r2": 0.015610469901268798,
+      "n": 40
+    },
+    "interval_metrics": {
+      "picp_95": 0.275,
+      "mpiw_95": 0.08556482593035353,
+      "confidence_level": 0.95,
+      "method": "case bootstrap"
+    },
+    "feature_importance": [
+      {
+        "feature": "interest_rate_pct",
+        "importance": 0.4547320923417195
+      },
+      {
+        "feature": "log_loan_exposure",
+        "importance": 0.14202918533233633
+      },
+      {
+        "feature": "loan_exposure_musd",
+        "importance": 0.11042209566666243
+      },
+      {
+        "feature": "debt_service_coverage",
+        "importance": 0.10846523552350314
+      },
+      {
+        "feature": "commodity_price_index",
+        "importance": 0.0068655711761238195
+      }
+    ],
+    "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/risk__finance_only__linear.pkl",
+    "trained_at": "2026-10-27T16:00:17.434465+00:00",
+    "limitations": [
+      "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
+      "Results must not be quoted as empirical default probabilities.",
+      "Climate enters through a small panel of state centroids.",
+      "Few test years: interval coverage estimates are themselves uncertain."
+    ],
+    "synthetic_target": true
+  },
+  "risk__finance_only__ridge": {
+    "registry_key": "risk__finance_only__ridge",
+    "task": "risk",
+    "feature_set": "finance_only",
+    "model_id": "ridge",
+    "version": "1.0.0",
+    "target": "credit_stress_rate",
+    "features": [
+      "interest_rate_pct",
+      "debt_service_coverage",
+      "loan_exposure_musd",
+      "commodity_price_index",
+      "log_loan_exposure"
+    ],
+    "training_period": "<= 2015",
+    "validation_period": "2016-2020",
+    "test_period": "> 2020",
+    "seed": 42,
+    "n_train": 208,
+    "n_validation": 40,
+    "n_test": 40,
+    "validation_metrics": {
+      "mae": 0.08489135307592326,
+      "rmse": 0.10349557327023287,
+      "r2": 0.24370299511586568,
+      "n": 40
+    },
+    "test_metrics": {
+      "mae": 0.07955987433053786,
+      "rmse": 0.09938545671468879,
+      "r2": 0.034001708991664326,
+      "n": 40
+    },
+    "interval_metrics": {
+      "picp_95": 0.225,
+      "mpiw_95": 0.08131448551739437,
+      "confidence_level": 0.95,
+      "method": "case bootstrap"
+    },
+    "feature_importance": [
+      {
+        "feature": "interest_rate_pct",
+        "importance": 0.45561778684468657
+      },
+      {
+        "feature": "log_loan_exposure",
+        "importance": 0.1255023932094333
+      },
+      {
+        "feature": "debt_service_coverage",
+        "importance": 0.1072452327898656
+      },
+      {
+        "feature": "loan_exposure_musd",
+        "importance": 0.09850497540299351
+      },
+      {
+        "feature": "commodity_price_index",
+        "importance": 0.006713898350966585
+      }
+    ],
+    "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/risk__finance_only__ridge.pkl",
+    "trained_at": "2026-10-27T16:00:17.625862+00:00",
+    "limitations": [
+      "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
+      "Results must not be quoted as empirical default probabilities.",
+      "Climate enters through a small panel of state centroids.",
+      "Few test years: interval coverage estimates are themselves uncertain."
+    ],
+    "synthetic_target": true
+  },
+  "risk__finance_only__random_forest": {
+    "registry_key": "risk__finance_only__random_forest",
+    "task": "risk",
+    "feature_set": "finance_only",
+    "model_id": "random_forest",
+    "version": "1.0.0",
+    "target": "credit_stress_rate",
+    "features": [
+      "interest_rate_pct",
+      "debt_service_coverage",
+      "loan_exposure_musd",
+      "commodity_price_index",
+      "log_loan_exposure"
+    ],
+    "training_period": "<= 2015",
+    "validation_period": "2016-2020",
+    "test_period": "> 2020",
+    "seed": 42,
+    "n_train": 208,
+    "n_validation": 40,
+    "n_test": 40,
+    "validation_metrics": {
+      "mae": 0.07904670986274051,
+      "rmse": 0.09335285334949335,
+      "r2": 0.38467575836119017,
+      "n": 40
+    },
+    "test_metrics": {
+      "mae": 0.07587384172999652,
+      "rmse": 0.09019707822804597,
+      "r2": 0.20436180837816642,
+      "n": 40
+    },
+    "interval_metrics": {
+      "picp_95": 0.375,
+      "mpiw_95": 0.09731423728942638,
+      "confidence_level": 0.95,
+      "method": "case bootstrap"
+    },
+    "feature_importance": [
+      {
+        "feature": "interest_rate_pct",
+        "importance": 0.6670186354353648
+      },
+      {
+        "feature": "debt_service_coverage",
+        "importance": 0.06656746550565612
+      },
+      {
+        "feature": "commodity_price_index",
+        "importance": -0.005760832005057203
+      },
+      {
+        "feature": "log_loan_exposure",
+        "importance": -0.020116371394572043
+      },
+      {
+        "feature": "loan_exposure_musd",
+        "importance": -0.022963883501218817
+      }
+    ],
+    "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/risk__finance_only__random_forest.pkl",
+    "trained_at": "2026-10-27T16:01:33.017181+00:00",
+    "limitations": [
+      "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
+      "Results must not be quoted as empirical default probabilities.",
+      "Climate enters through a small panel of state centroids.",
+      "Few test years: interval coverage estimates are themselves uncertain."
+    ],
+    "synthetic_target": true
+  },
+  "risk__finance_only__xgboost": {
+    "registry_key": "risk__finance_only__xgboost",
+    "task": "risk",
+    "feature_set": "finance_only",
+    "model_id": "xgboost",
+    "version": "1.0.0",
+    "target": "credit_stress_rate",
+    "features": [
+      "interest_rate_pct",
+      "debt_service_coverage",
+      "loan_exposure_musd",
+      "commodity_price_index",
+      "log_loan_exposure"
+    ],
+    "training_period": "<= 2015",
+    "validation_period": "2016-2020",
+    "test_period": "> 2020",
+    "seed": 42,
+    "n_train": 208,
+    "n_validation": 40,
+    "n_test": 40,
+    "validation_metrics": {
+      "mae": 0.08334790429520607,
+      "rmse": 0.09812757483410157,
+      "r2": 0.32012203968790776,
+      "n": 40
+    },
+    "test_metrics": {
+      "mae": 0.08639828158712386,
+      "rmse": 0.10180891140078699,
+      "r2": -0.013683249156856592,
+      "n": 40
+    },
+    "interval_metrics": {
+      "picp_95": 0.4,
+      "mpiw_95": 0.12316493241116407,
+      "confidence_level": 0.95,
+      "method": "case bootstrap"
+    },
+    "feature_importance": [
+      {
+        "feature": "interest_rate_pct",
+        "importance": 0.5628202266077119
+      },
+      {
+        "feature": "debt_service_coverage",
+        "importance": -0.010812704006356044
+      },
+      {
+        "feature": "log_loan_exposure",
+        "importance": -0.023033117586298002
+      },
+      {
+        "feature": "commodity_price_index",
+        "importance": -0.02788258441468592
+      },
+      {
+        "feature": "loan_exposure_musd",
+        "importance": -0.13433165535331865
+      }
+    ],
+    "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/risk__finance_only__xgboost.pkl",
+    "trained_at": "2026-10-27T16:01:43.179893+00:00",
+    "limitations": [
+      "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
+      "Results must not be quoted as empirical default probabilities.",
+      "Climate enters through a small panel of state centroids.",
+      "Few test years: interval coverage estimates are themselves uncertain."
+    ],
+    "synthetic_target": true
+  },
+  "risk__combined__mean_baseline": {
+    "registry_key": "risk__combined__mean_baseline",
+    "task": "risk",
+    "feature_set": "combined",
+    "model_id": "mean_baseline",
+    "version": "1.0.0",
+    "target": "credit_stress_rate",
+    "features": [
+      "interest_rate_pct",
+      "debt_service_coverage",
+      "loan_exposure_musd",
+      "commodity_price_index",
+      "log_loan_exposure",
+      "rainfall_gs_mm",
+      "temp_gs_c",
+      "yield_anomaly"
+    ],
+    "training_period": "<= 2015",
+    "validation_period": "2016-2020",
+    "test_period": "> 2020",
+    "seed": 42,
+    "n_train": 208,
+    "n_validation": 40,
+    "n_test": 40,
+    "validation_metrics": {
+      "mae": 0.09614002884615387,
+      "rmse": 0.11979550798114748,
+      "r2": -0.013280998024169266,
+      "n": 40
+    },
+    "test_metrics": {
+      "mae": 0.08617377884615385,
+      "rmse": 0.10588637256380438,
+      "r2": -0.09650552324812312,
+      "n": 40
+    },
+    "interval_metrics": {
+      "picp_95": 0.2,
+      "mpiw_95": 0.02998732331730769,
+      "confidence_level": 0.95,
+      "method": "case bootstrap"
+    },
+    "feature_importance": [
+      {
+        "feature": "yield_anomaly",
+        "importance": 0.0
+      },
+      {
+        "feature": "temp_gs_c",
+        "importance": 0.0
+      },
+      {
+        "feature": "rainfall_gs_mm",
+        "importance": 0.0
+      },
+      {
+        "feature": "log_loan_exposure",
+        "importance": 0.0
+      },
+      {
+        "feature": "commodity_price_index",
+        "importance": 0.0
+      },
+      {
+        "feature": "loan_exposure_musd",
+        "importance": 0.0
+      },
+      {
+        "feature": "debt_service_coverage",
+        "importance": 0.0
+      },
+      {
+        "feature": "interest_rate_pct",
+        "importance": 0.0
+      }
+    ],
+    "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/risk__combined__mean_baseline.pkl",
+    "trained_at": "2026-10-27T16:01:43.250439+00:00",
+    "limitations": [
+      "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
+      "Results must not be quoted as empirical default probabilities.",
+      "Climate enters through a small panel of state centroids.",
+      "Few test years: interval coverage estimates are themselves uncertain."
+    ],
+    "synthetic_target": true
+  },
+  "risk__combined__linear": {
+    "registry_key": "risk__combined__linear",
+    "task": "risk",
+    "feature_set": "combined",
+    "model_id": "linear",
+    "version": "1.0.0",
+    "target": "credit_stress_rate",
+    "features": [
+      "interest_rate_pct",
+      "debt_service_coverage",
+      "loan_exposure_musd",
+      "commodity_price_index",
+      "log_loan_exposure",
+      "rainfall_gs_mm",
+      "temp_gs_c",
+      "yield_anomaly"
+    ],
+    "training_period": "<= 2015",
+    "validation_period": "2016-2020",
+    "test_period": "> 2020",
+    "seed": 42,
+    "n_train": 208,
+    "n_validation": 40,
+    "n_test": 40,
+    "validation_metrics": {
+      "mae": 0.08640180770110274,
+      "rmse": 0.10568705973228458,
+      "r2": 0.21133519012669255,
+      "n": 40
+    },
+    "test_metrics": {
+      "mae": 0.08043643643596819,
+      "rmse": 0.10246783760870443,
+      "r2": -0.02684720453332412,
+      "n": 40
+    },
+    "interval_metrics": {
+      "picp_95": 0.325,
+      "mpiw_95": 0.09471830099357002,
+      "confidence_level": 0.95,
+      "method": "case bootstrap"
+    },
+    "feature_importance": [
+      {
+        "feature": "interest_rate_pct",
+        "importance": 0.5023167531527039
+      },
+      {
+        "feature": "log_loan_exposure",
+        "importance": 0.1998375926391333
+      },
+      {
+        "feature": "loan_exposure_musd",
+        "importance": 0.1537335853795317
+      },
+      {
+        "feature": "debt_service_coverage",
+        "importance": 0.11070484405334584
+      },
+      {
+        "feature": "commodity_price_index",
+        "importance": 0.006301286209152557
+      },
+      {
+        "feature": "rainfall_gs_mm",
+        "importance": 0.00025745734716218214
+      },
+      {
+        "feature": "temp_gs_c",
+        "importance": -0.0001001605157945562
+      },
+      {
+        "feature": "yield_anomaly",
+        "importance": -0.0012082937677944771
+      }
+    ],
+    "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/risk__combined__linear.pkl",
+    "trained_at": "2026-10-27T16:01:43.455419+00:00",
+    "limitations": [
+      "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
+      "Results must not be quoted as empirical default probabilities.",
+      "Climate enters through a small panel of state centroids.",
+      "Few test years: interval coverage estimates are themselves uncertain."
+    ],
+    "synthetic_target": true
+  },
+  "risk__combined__ridge": {
+    "registry_key": "risk__combined__ridge",
+    "task": "risk",
+    "feature_set": "combined",
+    "model_id": "ridge",
+    "version": "1.0.0",
+    "target": "credit_stress_rate",
+    "features": [
+      "interest_rate_pct",
+      "debt_service_coverage",
+      "loan_exposure_musd",
+      "commodity_price_index",
+      "log_loan_exposure",
+      "rainfall_gs_mm",
+      "temp_gs_c",
+      "yield_anomaly"
+    ],
+    "training_period": "<= 2015",
+    "validation_period": "2016-2020",
+    "test_period": "> 2020",
+    "seed": 42,
+    "n_train": 208,
+    "n_validation": 40,
+    "n_test": 40,
+    "validation_metrics": {
+      "mae": 0.08606916413863995,
+      "rmse": 0.10501273322138956,
+      "r2": 0.22136708966815355,
+      "n": 40
+    },
+    "test_metrics": {
+      "mae": 0.07983215578404423,
+      "rmse": 0.10113787577289295,
+      "r2": -0.00036465325996859477,
+      "n": 40
+    },
+    "interval_metrics": {
+      "picp_95": 0.325,
+      "mpiw_95": 0.08955541990738193,
+      "confidence_level": 0.95,
+      "method": "case bootstrap"
+    },
+    "feature_importance": [
+      {
+        "feature": "interest_rate_pct",
+        "importance": 0.49863461995004954
+      },
+      {
+        "feature": "log_loan_exposure",
+        "importance": 0.17392583069475917
+      },
+      {
+        "feature": "loan_exposure_musd",
+        "importance": 0.13484634935252518
+      },
+      {
+        "feature": "debt_service_coverage",
+        "importance": 0.10903516726808375
+      },
+      {
+        "feature": "commodity_price_index",
+        "importance": 0.006198185800319711
+      },
+      {
+        "feature": "rainfall_gs_mm",
+        "importance": -0.00010533782620166798
+      },
+      {
+        "feature": "temp_gs_c",
+        "importance": -0.0004763276701744923
+      },
+      {
+        "feature": "yield_anomaly",
+        "importance": -0.0011532097949962683
+      }
+    ],
+    "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/risk__combined__ridge.pkl",
+    "trained_at": "2026-10-27T16:01:43.665022+00:00",
+    "limitations": [
+      "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
+      "Results must not be quoted as empirical default probabilities.",
+      "Climate enters through a small panel of state centroids.",
+      "Few test years: interval coverage estimates are themselves uncertain."
+    ],
+    "synthetic_target": true
+  },
+  "risk__combined__random_forest": {
+    "registry_key": "risk__combined__random_forest",
+    "task": "risk",
+    "feature_set": "combined",
+    "model_id": "random_forest",
+    "version": "1.0.0",
+    "target": "credit_stress_rate",
+    "features": [
+      "interest_rate_pct",
+      "debt_service_coverage",
+      "loan_exposure_musd",
+      "commodity_price_index",
+      "log_loan_exposure",
+      "rainfall_gs_mm",
+      "temp_gs_c",
+      "yield_anomaly"
+    ],
+    "training_period": "<= 2015",
+    "validation_period": "2016-2020",
+    "test_period": "> 2020",
+    "seed": 42,
+    "n_train": 208,
+    "n_validation": 40,
+    "n_test": 40,
+    "validation_metrics": {
+      "mae": 0.08038962455915,
+      "rmse": 0.09511855019636571,
+      "r2": 0.36117886543895195,
+      "n": 40
+    },
+    "test_metrics": {
+      "mae": 0.07518199250754365,
+      "rmse": 0.08896006484213874,
+      "r2": 0.22603581541504147,
+      "n": 40
+    },
+    "interval_metrics": {
+      "picp_95": 0.325,
+      "mpiw_95": 0.09495983941029174,
+      "confidence_level": 0.95,
+      "method": "case bootstrap"
+    },
+    "feature_importance": [
+      {
+        "feature": "interest_rate_pct",
+        "importance": 0.649743999279291
+      },
+      {
+        "feature": "debt_service_coverage",
+        "importance": 0.08131703302751211
+      },
+      {
+        "feature": "commodity_price_index",
+        "importance": 0.0065278281013214645
+      },
+      {
+        "feature": "temp_gs_c",
+        "importance": -0.0007132587505829125
+      },
+      {
+        "feature": "yield_anomaly",
+        "importance": -0.0007876069342461544
+      },
+      {
+        "feature": "log_loan_exposure",
+        "importance": -0.009663932899650052
+      },
+      {
+        "feature": "loan_exposure_musd",
+        "importance": -0.010944627464973322
+      },
+      {
+        "feature": "rainfall_gs_mm",
+        "importance": -0.012394297972404522
+      }
+    ],
+    "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/risk__combined__random_forest.pkl",
+    "trained_at": "2026-10-27T16:03:14.322640+00:00",
+    "limitations": [
+      "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
+      "Results must not be quoted as empirical default probabilities.",
+      "Climate enters through a small panel of state centroids.",
+      "Few test years: interval coverage estimates are themselves uncertain."
+    ],
+    "synthetic_target": true
+  },
+  "risk__combined__xgboost": {
+    "registry_key": "risk__combined__xgboost",
+    "task": "risk",
+    "feature_set": "combined",
+    "model_id": "xgboost",
+    "version": "1.0.0",
+    "target": "credit_stress_rate",
+    "features": [
+      "interest_rate_pct",
+      "debt_service_coverage",
+      "loan_exposure_musd",
+      "commodity_price_index",
+      "log_loan_exposure",
+      "rainfall_gs_mm",
+      "temp_gs_c",
+      "yield_anomaly"
+    ],
+    "training_period": "<= 2015",
+    "validation_period": "2016-2020",
+    "test_period": "> 2020",
+    "seed": 42,
+    "n_train": 208,
+    "n_validation": 40,
+    "n_test": 40,
+    "validation_metrics": {
+      "mae": 0.0888645317261219,
+      "rmse": 0.10230036642341024,
+      "r2": 0.26107015113757914,
+      "n": 40
+    },
+    "test_metrics": {
+      "mae": 0.08407674862980843,
+      "rmse": 0.10092080922429282,
+      "r2": 0.003924791760456903,
+      "n": 40
+    },
+    "interval_metrics": {
+      "picp_95": 0.425,
+      "mpiw_95": 0.12202963089570402,
+      "confidence_level": 0.95,
+      "method": "case bootstrap"
+    },
+    "feature_importance": [
+      {
+        "feature": "interest_rate_pct",
+        "importance": 0.626161667576027
+      },
+      {
+        "feature": "debt_service_coverage",
+        "importance": 0.03626602652411
+      },
+      {
+        "feature": "commodity_price_index",
+        "importance": 0.013442829374915788
+      },
+      {
+        "feature": "rainfall_gs_mm",
+        "importance": 0.012027930556152056
+      },
+      {
+        "feature": "yield_anomaly",
+        "importance": 0.010112169831646589
+      },
+      {
+        "feature": "log_loan_exposure",
+        "importance": -0.0274133306542807
+      },
+      {
+        "feature": "temp_gs_c",
+        "importance": -0.031167927222816406
+      },
+      {
+        "feature": "loan_exposure_musd",
+        "importance": -0.12165108362691077
+      }
+    ],
+    "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/risk__combined__xgboost.pkl",
+    "trained_at": "2026-10-27T16:03:26.689166+00:00",
+    "limitations": [
+      "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
+      "Results must not be quoted as empirical default probabilities.",
+      "Climate enters through a small panel of state centroids.",
+      "Few test years: interval coverage estimates are themselves uncertain."
+    ],
+    "synthetic_target": true
+  },
+  "yield__climate_and_trend__mean_baseline": {
+    "registry_key": "yield__climate_and_trend__mean_baseline",
+    "task": "yield",
+    "feature_set": "climate_and_trend",
+    "model_id": "mean_baseline",
+    "version": "1.0.0",
+    "target": "yield_t_ha",
+    "features": [
+      "rainfall_gs_mm",
+      "temp_gs_c",
+      "year"
+    ],
+    "training_period": "<= 2014",
+    "validation_period": "2015-2019",
+    "test_period": "> 2019",
+    "seed": 42,
+    "n_train": 25,
+    "n_validation": 5,
+    "n_test": 5,
+    "validation_metrics": {
+      "mae": 2.1387319999999996,
+      "rmse": 2.174162346611678,
+      "r2": -29.93425917844774,
+      "n": 5
+    },
+    "test_metrics": {
+      "mae": 2.2734319999999997,
+      "rmse": 2.276845115554415,
+      "r2": -332.7937021287007,
+      "n": 5
+    },
+    "interval_metrics": {
+      "picp_95": 0.0,
+      "mpiw_95": 0.741582799999998,
+      "confidence_level": 0.95,
+      "method": "case bootstrap"
+    },
+    "feature_importance": [
+      {
+        "feature": "year",
+        "importance": 0.0
+      },
+      {
+        "feature": "temp_gs_c",
+        "importance": 0.0
+      },
+      {
+        "feature": "rainfall_gs_mm",
+        "importance": 0.0
+      }
+    ],
+    "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/yield__climate_and_trend__mean_baseline.pkl",
+    "trained_at": "2026-10-27T15:59:08.137674+00:00",
+    "limitations": [
+      "National-level aggregates; no sub-national or farm-level resolution.",
+      "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
+      "Few test years: interval coverage estimates are themselves uncertain.",
+      "Extrapolation beyond the observed climate range is unreliable.",
+      "Tree-based models cannot extrapolate the year trend beyond the training range."
+    ],
+    "synthetic_target": false
+  },
+  "yield__climate_and_trend__linear": {
+    "registry_key": "yield__climate_and_trend__linear",
+    "task": "yield",
+    "feature_set": "climate_and_trend",
+    "model_id": "linear",
+    "version": "1.0.0",
+    "target": "yield_t_ha",
+    "features": [
+      "rainfall_gs_mm",
+      "temp_gs_c",
+      "year"
+    ],
+    "training_period": "<= 2014",
+    "validation_period": "2015-2019",
+    "test_period": "> 2019",
+    "seed": 42,
+    "n_train": 25,
+    "n_validation": 5,
+    "n_test": 5,
+    "validation_metrics": {
+      "mae": 0.4712591164714288,
+      "rmse": 0.6276488824415323,
+      "r2": -1.578037910386005,
+      "n": 5
+    },
+    "test_metrics": {
+      "mae": 0.09110993063067455,
+      "rmse": 0.11843814809325834,
+      "r2": 0.0967782690835437,
+      "n": 5
+    },
+    "interval_metrics": {
+      "picp_95": 1.0,
+      "mpiw_95": 1.0510021309486937,
+      "confidence_level": 0.95,
+      "method": "case bootstrap"
+    },
+    "feature_importance": [
+      {
+        "feature": "year",
+        "importance": 4.22730290985575
+      },
+      {
+        "feature": "temp_gs_c",
+        "importance": 0.5460809684754171
+      },
+      {
+        "feature": "rainfall_gs_mm",
+        "importance": -0.06193398922353246
+      }
+    ],
+    "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/yield__climate_and_trend__linear.pkl",
+    "trained_at": "2026-10-27T15:59:08.328575+00:00",
+    "limitations": [
+      "National-level aggregates; no sub-national or farm-level resolution.",
+      "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
+      "Few test years: interval coverage estimates are themselves uncertain.",
+      "Extrapolation beyond the observed climate range is unreliable.",
+      "Tree-based models cannot extrapolate the year trend beyond the training range."
+    ],
+    "synthetic_target": false
+  },
+  "yield__climate_and_trend__ridge": {
+    "registry_key": "yield__climate_and_trend__ridge",
+    "task": "yield",
+    "feature_set": "climate_and_trend",
+    "model_id": "ridge",
+    "version": "1.0.0",
+    "target": "yield_t_ha",
+    "features": [
+      "rainfall_gs_mm",
+      "temp_gs_c",
+      "year"
+    ],
+    "training_period": "<= 2014",
+    "validation_period": "2015-2019",
+    "test_period": "> 2019",
+    "seed": 42,
+    "n_train": 25,
+    "n_validation": 5,
+    "n_test": 5,
+    "validation_metrics": {
+      "mae": 0.532842115196029,
+      "rmse": 0.6712866036011977,
+      "r2": -1.948979410649152,
+      "n": 5
+    },
+    "test_metrics": {
+      "mae": 0.1426554827513499,
+      "rmse": 0.16948270066012808,
+      "r2": -0.8495322700445158,
+      "n": 5
+    },
+    "interval_metrics": {
+      "picp_95": 1.0,
+      "mpiw_95": 1.042702912103199,
+      "confidence_level": 0.95,
+      "method": "case bootstrap"
+    },
+    "feature_importance": [
+      {
+        "feature": "year",
+        "importance": 3.700467843917893
+      },
+      {
+        "feature": "temp_gs_c",
+        "importance": 0.4125041670878759
+      },
+      {
+        "feature": "rainfall_gs_mm",
+        "importance": -0.0385788772729613
+      }
+    ],
+    "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/yield__climate_and_trend__ridge.pkl",
+    "trained_at": "2026-10-27T15:59:08.529457+00:00",
+    "limitations": [
+      "National-level aggregates; no sub-national or farm-level resolution.",
+      "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
+      "Few test years: interval coverage estimates are themselves uncertain.",
+      "Extrapolation beyond the observed climate range is unreliable.",
+      "Tree-based models cannot extrapolate the year trend beyond the training range."
+    ],
+    "synthetic_target": false
+  },
+  "yield__climate_and_trend__random_forest": {
+    "registry_key": "yield__climate_and_trend__random_forest",
+    "task": "yield",
+    "feature_set": "climate_and_trend",
+    "model_id": "random_forest",
+    "version": "1.0.0",
+    "target": "yield_t_ha",
+    "features": [
+      "rainfall_gs_mm",
+      "temp_gs_c",
+      "year"
+    ],
+    "training_period": "<= 2014",
+    "validation_period": "2015-2019",
+    "test_period": "> 2019",
+    "seed": 42,
+    "n_train": 25,
+    "n_validation": 5,
+    "n_test": 5,
+    "validation_metrics": {
+      "mae": 1.2366858307097082,
+      "rmse": 1.322155239639659,
+      "r2": -10.439859233220272,
+      "n": 5
+    },
+    "test_metrics": {
+      "mae": 1.5806687053853137,
+      "rmse": 1.590019552995552,
+      "r2": -161.78564013871534,
+      "n": 5
+    },
+    "interval_metrics": {
+      "picp_95": 0.0,
+      "mpiw_95": 1.0272226907498505,
+      "confidence_level": 0.95,
+      "method": "case bootstrap"
+    },
+    "feature_importance": [
+      {
+        "feature": "rainfall_gs_mm",
+        "importance": 0.45219763366102084
+      },
+      {
+        "feature": "year",
+        "importance": 0.0
+      },
+      {
+        "feature": "temp_gs_c",
+        "importance": -0.6600730748516241
+      }
+    ],
+    "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/yield__climate_and_trend__random_forest.pkl",
+    "trained_at": "2026-10-27T16:00:10.034872+00:00",
+    "limitations": [
+      "National-level aggregates; no sub-national or farm-level resolution.",
+      "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
+      "Few test years: interval coverage estimates are themselves uncertain.",
+      "Extrapolation beyond the observed climate range is unreliable.",
+      "Tree-based models cannot extrapolate the year trend beyond the training range."
+    ],
+    "synthetic_target": false
+  },
+  "yield__climate_and_trend__xgboost": {
+    "registry_key": "yield__climate_and_trend__xgboost",
+    "task": "yield",
+    "feature_set": "climate_and_trend",
+    "model_id": "xgboost",
+    "version": "1.0.0",
+    "target": "yield_t_ha",
+    "features": [
+      "rainfall_gs_mm",
+      "temp_gs_c",
+      "year"
+    ],
+    "training_period": "<= 2014",
+    "validation_period": "2015-2019",
+    "test_period": "> 2019",
+    "seed": 42,
+    "n_train": 25,
+    "n_validation": 5,
+    "n_test": 5,
+    "validation_metrics": {
+      "mae": 1.022424871368408,
+      "rmse": 1.1039012420101662,
+      "r2": -6.974734324620877,
+      "n": 5
+    },
+    "test_metrics": {
+      "mae": 1.4034421626281737,
+      "rmse": 1.4168895458167843,
+      "r2": -128.2656557316985,
+      "n": 5
+    },
+    "interval_metrics": {
+      "picp_95": 0.0,
+      "mpiw_95": 1.1447618699073794,
+      "confidence_level": 0.95,
+      "method": "case bootstrap"
+    },
+    "feature_importance": [
+      {
+        "feature": "rainfall_gs_mm",
+        "importance": 3.8432312515771074
+      },
+      {
+        "feature": "temp_gs_c",
+        "importance": 2.5207996511697077
+      },
+      {
+        "feature": "year",
+        "importance": 0.0
+      }
+    ],
+    "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/yield__climate_and_trend__xgboost.pkl",
+    "trained_at": "2026-10-27T16:00:17.210441+00:00",
+    "limitations": [
+      "National-level aggregates; no sub-national or farm-level resolution.",
+      "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
+      "Few test years: interval coverage estimates are themselves uncertain.",
+      "Extrapolation beyond the observed climate range is unreliable.",
+      "Tree-based models cannot extrapolate the year trend beyond the training range."
+    ],
+    "synthetic_target": false
+  }
+}

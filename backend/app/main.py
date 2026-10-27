@@ -1,11 +1,13 @@
+from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
-from typing import AsyncGenerator
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import text
 
+from app.api.routes import router as api_router
 from app.core.config import settings
-from app.core.database import close_db, init_db
+from app.core.database import close_db, engine, init_db
 from app.core.logging import setup_logging
 
 
@@ -36,20 +38,34 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
 
-    @app.get("/api/health", tags=["Health"])
-    async def health_check() -> dict[str, str]:
-        return {"status": "healthy", "version": settings.APP_VERSION}
+    app.include_router(api_router, prefix=settings.API_PREFIX)
 
-    # API routers will be included here
-    # from app.api import data, statistics, models, predictions, forecast, scenarios, explanations, research
-    # app.include_router(data.router, prefix=f"{settings.API_PREFIX}/data", tags=["Data"])
-    # app.include_router(statistics.router, prefix=f"{settings.API_PREFIX}/statistics", tags=["Statistics"])
-    # app.include_router(models.router, prefix=f"{settings.API_PREFIX}/models", tags=["Models"])
-    # app.include_router(predictions.router, prefix=f"{settings.API_PREFIX}/predictions", tags=["Predictions"])
-    # app.include_router(forecast.router, prefix=f"{settings.API_PREFIX}/forecast", tags=["Forecast"])
-    # app.include_router(scenarios.router, prefix=f"{settings.API_PREFIX}/scenarios", tags=["Scenarios"])
-    # app.include_router(explanations.router, prefix=f"{settings.API_PREFIX}/explanations", tags=["Explanations"])
-    # app.include_router(research.router, prefix=f"{settings.API_PREFIX}/research", tags=["Research"])
+    @app.get("/api/health", tags=["Health"])
+    async def health_check() -> dict[str, object]:
+        database_status = "connected"
+        try:
+            async with engine.connect() as connection:
+                await connection.execute(text("SELECT 1"))
+        except Exception:
+            database_status = "disconnected"
+
+        from app.services import store
+
+        data_ready = store.snapshots_present()
+        models_ready = bool(store.load_registry() or {})
+        return {
+            "status": "healthy" if database_status == "connected" else "degraded",
+            "version": settings.APP_VERSION,
+            "dependencies": {
+                "database": database_status,
+                "mlflow": "disconnected",
+                "cache": "connected" if data_ready else "disconnected",
+            },
+            "pipeline": {
+                "data_ingested": data_ready,
+                "models_trained": models_ready,
+            },
+        }
 
     return app
 

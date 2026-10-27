@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
-import './styles/globals.css';
+import { Providers } from '@/lib/api/providers';
+import '../styles/globals.css';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -9,13 +10,22 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'AgRiX | Agricultural Credit Risk Framework',
-  description: 'Uncertainty-aware statistical and machine learning framework for agricultural credit risk under climate and yield variability',
-  keywords: ['agriculture', 'credit risk', 'climate', 'yield forecasting', 'uncertainty quantification', 'machine learning'],
+  title: 'AgRiX | The Season Lens',
+  description:
+    'An uncertainty-aware research instrument for climate-linked agricultural credit risk.',
+  keywords: [
+    'agriculture',
+    'credit risk',
+    'climate',
+    'yield forecasting',
+    'uncertainty quantification',
+    'machine learning',
+  ],
   authors: [{ name: 'AgRiX Contributors' }],
   openGraph: {
-    title: 'AgRiX | Agricultural Credit Risk Framework',
-    description: 'Uncertainty-aware statistical and machine learning framework for agricultural credit risk',
+    title: 'AgRiX | The Season Lens',
+    description:
+      'An uncertainty-aware research instrument for climate-linked agricultural credit risk.',
     type: 'website',
   },
 };
@@ -26,11 +36,7 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} font-sans`}>
       <head>
@@ -38,7 +44,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="min-h-screen bg-background text-text">
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

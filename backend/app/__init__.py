@@ -1,0 +1,1 @@
+"""AgRiX backend application package."""

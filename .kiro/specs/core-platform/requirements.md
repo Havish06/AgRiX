@@ -14,7 +14,7 @@ AgRiX is an uncertainty-aware statistical and machine learning framework for agr
 | FR-DI-02 | Support FAOSTAT as primary agricultural data source (crop yield, area, production) | P0 |
 | FR-DI-03 | Support NOAA, NASA POWER, ERA5 as climate data sources (rainfall, temperature, soil moisture) | P0 |
 | FR-DI-04 | Support public agricultural credit datasets and synthetic financial profiles for financial data | P0 |
-| FR-DI-05 | Support commodity price data (FAOSTAT, Alpha Vantage, Quandl) | P1 |
+| FR-DI-05 | Support commodity price data (FAOSTAT, Alpha Vantage) | P1 |
 | FR-DI-06 | Cache all external API responses with TTL and versioning | P0 |
 | FR-DI-07 | Work offline with local verified snapshots when external APIs unavailable | P0 |
 | FR-DI-08 | Record provenance metadata (provider, URL, license, access date, coverage) for every dataset | P0 |

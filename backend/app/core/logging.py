@@ -1,6 +1,6 @@
 import logging
 import sys
-from typing import Any
+from typing import Any, cast
 
 import structlog
 from structlog.types import EventDict, Processor
@@ -8,7 +8,9 @@ from structlog.types import EventDict, Processor
 from app.core.config import settings
 
 
-def add_correlation_id(logger: logging.Logger, method_name: str, event_dict: EventDict) -> EventDict:
+def add_correlation_id(
+    logger: logging.Logger, method_name: str, event_dict: EventDict
+) -> EventDict:
     correlation_id = getattr(logger, "correlation_id", None)
     if correlation_id:
         event_dict["correlation_id"] = correlation_id
@@ -56,7 +58,7 @@ def setup_logging() -> None:
 
 
 def get_logger(name: str) -> structlog.stdlib.BoundLogger:
-    return structlog.get_logger(name)
+    return cast(structlog.stdlib.BoundLogger, structlog.get_logger(name))
 
 
 class LoggerMixin:

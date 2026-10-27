@@ -11,13 +11,17 @@ class Base(DeclarativeBase):
     pass
 
 
-engine = create_async_engine(
-    settings.DATABASE_URL,
-    echo=settings.DEBUG,
-    pool_size=settings.DB_POOL_SIZE,
-    max_overflow=settings.DB_MAX_OVERFLOW,
-    pool_pre_ping=True,
-)
+engine_options: dict[str, object] = {
+    "echo": settings.DEBUG,
+    "pool_pre_ping": True,
+}
+if settings.DATABASE_URL.startswith(("postgresql", "mysql")):
+    engine_options.update(
+        pool_size=settings.DB_POOL_SIZE,
+        max_overflow=settings.DB_MAX_OVERFLOW,
+    )
+
+engine = create_async_engine(settings.DATABASE_URL, **engine_options)
 
 async_session_maker = async_sessionmaker(
     engine,
