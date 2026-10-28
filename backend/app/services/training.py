@@ -1,9 +1,15 @@
 """Model training, evaluation, and registration.
 
 Implements the baseline-first protocol: every model in the zoo is trained on
-the same chronological split, evaluated on the same test years, and given
-bootstrap prediction intervals. Each trained model is persisted together with
-a model card (metrics, features, limitations) in the registry.
+the same chronological split, evaluated on the same held-out test years, and
+given calibrated prediction intervals. Hyperparameters are selected with
+RandomizedSearchCV against the chronological validation block only (no
+shuffling, no folds that mix years); XGBoost stops adding trees when that
+block stops improving and the final model gets exactly that tree count.
+Intervals union the case-bootstrap sampling spread with a split-conformal
+band calibrated on validation residuals. Each trained model is persisted
+together with a model card (metrics, features, hyperparameters, limitations)
+in the registry.
 """
 
 import json
@@ -25,8 +31,12 @@ from app.ml.features import (
 from app.ml.models import (
     bootstrap_prediction_intervals,
     compute_regression_metrics,
+    conformal_quantile,
+    fit_tuned,
     interval_coverage_metrics,
     model_builders,
+    tune_model,
+    tuned_builder,
 )
 from app.services import store
 
@@ -42,7 +52,7 @@ RISK_FEATURE_SETS = {
     "combined": [*FINANCIAL_FEATURES, "log_loan_exposure", *CLIMATE_FEATURES, "yield_anomaly"],
 }
 
-MODEL_VERSION = "1.0.0"
+MODEL_VERSION = "1.1.0"
 
 YIELD_LIMITATIONS = [
     "National-level aggregates; no sub-national or farm-level resolution.",
@@ -57,14 +67,6 @@ RISK_LIMITATIONS = [
     "Climate enters through a small panel of state centroids.",
     "Few test years: interval coverage estimates are themselves uncertain.",
 ]
-
-
-def _fit_scaled(model_factory, X_train, y_train, X_eval):
-    """Standardize with statistics from the training block only (leakage-safe)."""
-    scaler = StandardScaler().fit(X_train)
-    model = model_factory()
-    model.fit(scaler.transform(X_train), y_train)
-    return model, scaler, scaler.transform(X_eval)
 
 
 def _permutation_importance(model, scaler, X_test, y_test, seed: int) -> list[dict[str, Any]]:
@@ -90,7 +92,13 @@ def train_task(
     seed: int = DEFAULT_RANDOM_SEED,
     n_bootstrap: int = 200,
 ) -> dict[str, Any]:
-    """Train one (task, feature set, model) cell and persist artifact + card."""
+    """Train one (task, feature set, model) cell and persist artifact + card.
+
+    Protocol: chronological split -> scaler fitted on the training block only
+    -> RandomizedSearchCV on train -> validation -> final fit on train +
+    validation -> split-conformal calibration on validation residuals ->
+    metrics and intervals computed on the untouched test block.
+    """
     builders = model_builders(seed)
     if model_id not in builders:
         raise KeyError(f"Unknown model id '{model_id}'")
@@ -106,16 +114,46 @@ def train_task(
     X_test = test[features].to_numpy(dtype=float)
     y_test = test[target].to_numpy(dtype=float)
 
-    model, scaler, X_test_scaled = _fit_scaled(builders[model_id], X_train, y_train, X_test)
+    scaler = StandardScaler().fit(X_train)
+    X_train_scaled = scaler.transform(X_train)
     X_val_scaled = scaler.transform(X_val) if len(validation) else X_val
+    X_test_scaled = scaler.transform(X_test)
+
+    # 1. Time-aware hyperparameter selection: candidates are scored only on
+    #    the chronological validation block; no fold ever mixes years.
+    tuned = tune_model(
+        model_id, builders[model_id], X_train_scaled, y_train, X_val_scaled, y_val, seed
+    )
+
+    # 2. Final fit of the winning configuration on train + validation rows;
+    #    the test block is never touched by selection or fitting.
+    model = fit_tuned(
+        model_id, tuned, builders[model_id], scaler, X_train, y_train, X_val, y_val
+    )
+
+    # 3. Split-conformal calibration: residuals of the same configuration
+    #    fitted on the training block only, scored on validation rows that
+    #    residual model never saw.
+    calibrator = tuned_builder(model_id, tuned["best_params"], seed)()
+    calibrator.fit(X_train_scaled, y_train)
+    val_residuals = (
+        (y_val - calibrator.predict(X_val_scaled)) if len(validation) else np.array([])
+    )
+    conformal_q = conformal_quantile(val_residuals, DEFAULT_CONFIDENCE_LEVEL)
 
     val_metrics = (
         compute_regression_metrics(y_val, model.predict(X_val_scaled))
         if len(validation)
         else {"mae": None, "rmse": None, "r2": None, "n": 0}
     )
-    point, lower, upper = bootstrap_prediction_intervals(
-        builders[model_id],
+    point_test = model.predict(X_test_scaled)
+    test_metrics = compute_regression_metrics(y_test, point_test)
+
+    # 4. Intervals on the same held-out test block: the bootstrap sampling
+    #    spread unioned with the conformal band, so coverage targets the
+    #    nominal level even where the bootstrap alone under-covers.
+    _, lower_boot, upper_boot = bootstrap_prediction_intervals(
+        tuned_builder(model_id, tuned["best_params"], seed),
         X_train,
         y_train,
         X_test,
@@ -123,9 +161,13 @@ def train_task(
         seed=seed,
         confidence_level=DEFAULT_CONFIDENCE_LEVEL,
     )
-    # Intervals are produced from unscaled features; evaluate the scaled point
-    # model on the same test rows so metrics and intervals describe one model.
-    test_metrics = compute_regression_metrics(y_test, model.predict(X_test_scaled))
+    if np.isfinite(conformal_q):
+        lower = np.minimum(lower_boot, point_test - conformal_q)
+        upper = np.maximum(upper_boot, point_test + conformal_q)
+        interval_method = "split-conformal (validation residuals) + case bootstrap"
+    else:
+        lower, upper = lower_boot, upper_boot
+        interval_method = "case bootstrap (validation block too small to calibrate)"
     coverage = interval_coverage_metrics(y_test, lower, upper)
 
     importance = _permutation_importance(model, scaler, X_test, y_test, seed)
@@ -153,13 +195,22 @@ def train_task(
         "n_train": len(train),
         "n_validation": len(validation),
         "n_test": len(test),
+        "tuning": {
+            "method": "RandomizedSearchCV on chronological validation block",
+            "tuned": tuned["tuned"],
+            "n_iter": tuned["n_iter"],
+            "best_val_mae": tuned["best_val_mae"],
+            "best_iteration": tuned["best_iteration"],
+        },
+        "best_params": tuned["best_params"],
         "validation_metrics": val_metrics,
         "test_metrics": test_metrics,
         "interval_metrics": {
             "picp_95": coverage["picp"],
             "mpiw_95": coverage["mpiw"],
             "confidence_level": DEFAULT_CONFIDENCE_LEVEL,
-            "method": "case bootstrap",
+            "method": interval_method,
+            "conformal_half_width": float(conformal_q) if np.isfinite(conformal_q) else None,
         },
         "feature_importance": drivers,
         "artifact_path": str(artifact_path),
@@ -247,7 +298,11 @@ def model_cards() -> list[dict[str, Any]]:
                 "features": record["features"],
                 "target": record["target"],
                 "training_period": record["training_period"],
-                "validation_method": f"chronological split; test {record['test_period']}",
+                "validation_method": (
+                    f"chronological split; hyperparameters tuned on "
+                    f"{record['validation_period']}; test {record['test_period']}"
+                ),
+                "hyperparameters": record.get("best_params"),
                 "metrics": {
                     **record["test_metrics"],
                     **record["interval_metrics"],

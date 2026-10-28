@@ -12,8 +12,9 @@ data exists), trains a comparable model zoo on chronological splits, and serves
 every estimate **with 95% prediction intervals, provenance, and explicit
 limitations** through a FastAPI backend and a Next.js research workspace.
 
-Status (2026-10-27): **fully operational.** Data ingested, models trained,
-tests passing, all API endpoints verified.
+Status (2026-10-28): **fully operational.** Data ingested, models trained
+(time-aware tuning + conformally calibrated intervals), tests passing, all API
+endpoints verified.
 
 ---
 
@@ -45,7 +46,8 @@ Three integrity rules shape everything:
 | Synthetic agricultural credit panel (seed 42) | ✅ Seeded generator, documented |
 | Feature engineering (yield matrix, risk panel, state climate) | ✅ |
 | Model zoo training: mean baseline, linear, ridge, random forest, XGBoost | ✅ 20 models (2 tasks × 2 feature sets × 5 models) |
-| Bootstrap 95% prediction intervals on every model | ✅ Case bootstrap |
+| Time-aware hyperparameter tuning | ✅ RandomizedSearchCV on the chronological validation block; XGBoost early stopping |
+| Calibrated 95% prediction intervals on every model | ✅ Case bootstrap ∪ split-conformal band |
 | Model registry with model cards, metrics, limitations | ✅ `backend/model_registry/` |
 | REST API: predictions, risk assessment, forecast, scenarios, data endpoints | ✅ All verified |
 | Next.js dashboard: overview, source check, model lab, scenarios, forecast, research, settings | ✅ |
@@ -93,8 +95,9 @@ curl -X POST http://localhost:8000/api/pipeline/train
 ```
 
 Ingestion fetches NASA POWER + FAOSTAT (≈1–3 min depending on network), builds
-feature matrices, and registers everything in SQLite. Training fits 20 models
-with 200-replicate bootstrap intervals.
+feature matrices, and registers everything in SQLite. Training tunes and fits
+20 models (time-aware RandomizedSearchCV, XGBoost early stopping) and
+calibrates their 200-replicate bootstrap intervals with a split-conformal band.
 
 ### 3. Frontend
 
@@ -138,18 +141,23 @@ Models: `mean_baseline` (the bar every model must beat), `linear`, `ridge`,
 `random_forest`, `xgboost`. All trained on chronological splits
 (yield: train ≤2014, validate 2015–2019, test 2020–2024; risk: train ≤2015,
 validate 2016–2020, test 2021–2025), scaled with train-block statistics only.
+Hyperparameters are selected with RandomizedSearchCV against the validation
+block only (no shuffling, no folds that mix years); XGBoost stops adding trees
+when the validation block stops improving and the final model gets exactly
+that tree count. Intervals union the case-bootstrap spread with a
+split-conformal band calibrated on validation residuals.
 
-### Headline results (trained run 2026-10-27, seed 42)
+### Headline results (trained run 2026-10-28, seed 42, model version 1.1.0)
 
 | Task | Feature set | Model | Test MAE | Test R² | PICP 95% | MPIW |
 |---|---|---|---|---|---|---|
-| yield | climate_and_trend | **linear** | **0.091** | **0.097** | **1.00** | 1.051 |
-| yield | climate_and_trend | ridge | 0.143 | −0.850 | 1.00 | 1.043 |
-| yield | climate_and_trend | xgboost | 1.403 | −128.3 | 0.00 | 1.145 |
-| yield | climate_only | linear | 2.091 | −281.4 | 0.00 | 1.193 |
-| risk | finance_only | random_forest | 0.076 | **0.204** | 0.38 | 0.097 |
-| risk | combined | random_forest | **0.075** | **0.226** | 0.33 | 0.095 |
-| risk | combined | xgboost | 0.084 | 0.004 | **0.42** | 0.122 |
+| yield | climate_and_trend | random_forest | **0.121** | −0.304 | 0.00 | 1.062 |
+| yield | climate_and_trend | ridge | 0.251 | −3.843 | **1.00** | 1.051 |
+| yield | climate_only | linear | 1.676 | −184.7 | 0.00 | 1.193 |
+| risk | finance_only | ridge | **0.068** | 0.308 | **1.00** | 0.433 |
+| risk | finance_only | random_forest | 0.069 | **0.325** | **1.00** | **0.369** |
+| risk | combined | random_forest | 0.069 | 0.315 | 0.97 | 0.379 |
+| risk | combined | xgboost | 0.071 | 0.296 | **1.00** | 0.449 |
 
 Full tables live in `backend/model_registry/training_summary.json` and
 [docs/model-documentation.md](docs/model-documentation.md).
@@ -158,19 +166,27 @@ Full tables live in `backend/model_registry/training_summary.json` and
 
 1. **Climate alone cannot forecast national yields out-of-sample.** Yields
    trend strongly upward (technology, seed genetics). Every `climate_only`
-   model fails on the 2020–2024 test years (large negative R², 0% interval
+   model fails on the 2020+ test years (large negative R², 0% interval
    coverage). This is a *finding*, not a bug — the mean baseline beats them all.
-2. **Adding the year trend fixes it.** `climate_and_trend` + linear tracks the
-   held-out years (MAE 0.091 t/ha) with honest 95% intervals (5/5 test years
-   covered). Tree-based models still fail because they cannot extrapolate a
-   trend beyond the training range — a textbook limitation surfaced by the zoo.
-3. **On the risk task, climate adds little — for now.** `combined`
-   (random forest) edges out `finance_only` (R² 0.226 vs 0.204), and interval
-   coverage is below the 95% target for all risk models. With ~30 annual
-   observations per state and a synthetic target, the honest conclusion is that
-   the evidence for climate improving credit-risk assessment is **not yet
-   established** at this sample size. The instrument is built; stronger claims
-   need real loan outcomes and longer histories.
+2. **Adding the year trend makes errors small — with caveats.** With tuning
+   and a final fit that includes the validation years, tree models reach the
+   best point MAE (`random_forest`, 0.121 t/ha) and ridge covers every test
+   year. Test R² is negative across the board because the 2020+ yields sit in
+   a narrow, flat band that even the training mean approximates; absolute
+   errors, not R², are the meaningful yardstick here. The yield validation
+   block is too small to calibrate a conformal band, so those cards honestly
+   report bootstrap-only intervals.
+3. **The risk-task coverage gap is fixed.** Split-conformal calibration lifted
+   PICP from 0.20–0.42 to **0.97–1.00** for every risk model, at the honest
+   cost of wider intervals (MPIW 0.37–0.51): the earlier narrow intervals
+   simply missed. Time-aware tuning also improved point quality (best
+   finance-only R² 0.325, up from 0.204).
+4. **Climate still adds little to risk assessment — for now.** `combined` no
+   longer beats `finance_only` once the baselines are tuned (best R² 0.315 vs
+   0.325). With ~30 annual observations per state and a synthetic target, the
+   evidence that climate improves credit-risk assessment is **not yet
+   established** at this sample size. Stronger claims need real loan outcomes
+   and longer histories.
 
 ## API overview
 

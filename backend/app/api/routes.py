@@ -137,6 +137,31 @@ async def run_pipeline() -> dict[str, Any]:
     }
 
 
+@router.post("/pipeline/ingest", tags=["Pipeline"])
+async def run_ingest_step() -> dict[str, Any]:
+    """Ingest public data and build feature matrices (no training)."""
+    try:
+        ingestion = await ingest.run_ingestion()
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Ingestion failed: {exc}") from exc
+    return {"status": "completed", "ingestion": ingestion}
+
+
+@router.post("/pipeline/train", tags=["Pipeline"])
+async def run_train_step() -> dict[str, Any]:
+    """Train the model zoo from registered snapshots (requires ingestion)."""
+    _require_snapshots()
+    try:
+        summary = await asyncio.to_thread(training.train_all)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Training failed: {exc}") from exc
+    return {
+        "status": "completed",
+        "models_trained": len(summary["models"]),
+        "training_summary": summary,
+    }
+
+
 # ---------------------------------------------------------------------------
 # Data
 # ---------------------------------------------------------------------------

@@ -21,8 +21,17 @@ for agricultural lending compared with financial information alone?
 5. **Compare feature sets fairly** — an interpretable finance-only baseline
    against progressively enriched agricultural/climate feature sets, using
    identical splits, preprocessing, and evaluation for every model.
-6. **Quantify uncertainty** — every point estimate carries a 95% interval
-   (200-replicate bootstrap; trend + residual bootstrap for forecasts).
+   Hyperparameters are tuned with RandomizedSearchCV against the
+   chronological validation block only (no shuffling, no year-mixing folds;
+   iteration count capped by the validation block size); XGBoost stops adding
+   trees when the validation block stops improving and the final model gets
+   exactly that tree count. Final fits use train + validation rows; the test
+   block is evaluated exactly once.
+6. **Quantify uncertainty** — every point estimate carries a 95% interval:
+   a 200-replicate case bootstrap for the sampling spread, unioned with a
+   split-conformal half-width calibrated on held-out validation residuals
+   (trend + residual bootstrap for forecasts). Where the validation block is
+   too small to calibrate, bootstrap-only intervals are reported honestly.
    Report interval coverage (PICP) and width (MPIW) alongside MAE, RMSE, R².
 7. **Report honestly** — limitations stated explicitly; proxy risk scores are
    never described as observed default probabilities; synthetic financial

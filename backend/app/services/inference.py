@@ -12,7 +12,7 @@ import numpy as np
 import pandas as pd
 
 from app.core.constants import DEFAULT_CONFIDENCE_LEVEL, DEFAULT_RANDOM_SEED
-from app.ml.models import bootstrap_prediction_intervals, model_builders
+from app.ml.models import bootstrap_prediction_intervals, tuned_builder
 from app.ml.uncertainty import interval_summary
 from app.services import store
 
@@ -64,9 +64,12 @@ def predict_yield(
     y_train = crop_rows["yield_t_ha"].to_numpy(dtype=float)
     X_new = np.array([[rainfall_mm, temperature_c]], dtype=float)
 
-    builders = model_builders(DEFAULT_RANDOM_SEED)
+    # Refit the registered (tuned) configuration, and widen the bootstrap
+    # spread with the conformal half-width stored on the model card so live
+    # intervals match the coverage the card reports.
+    builder = tuned_builder(model_id, record.get("best_params"), DEFAULT_RANDOM_SEED)
     point, lower, upper = bootstrap_prediction_intervals(
-        builders[model_id],
+        builder,
         X_train,
         y_train,
         X_new,
@@ -74,6 +77,10 @@ def predict_yield(
         seed=DEFAULT_RANDOM_SEED,
         confidence_level=DEFAULT_CONFIDENCE_LEVEL,
     )
+    conformal_q = record["interval_metrics"].get("conformal_half_width")
+    if conformal_q is not None:
+        lower = np.minimum(lower, point - conformal_q)
+        upper = np.maximum(upper, point + conformal_q)
     return {
         "predicted_yield_t_ha": float(point[0]),
         "prediction_interval": [float(lower[0]), float(upper[0])],
@@ -117,9 +124,9 @@ def predict_risk(
     y_train = train_rows["credit_stress_rate"].to_numpy(dtype=float)
     X_new = row[features].to_numpy(dtype=float)
 
-    builders = model_builders(DEFAULT_RANDOM_SEED)
+    builder = tuned_builder(model_id, record.get("best_params"), DEFAULT_RANDOM_SEED)
     point, lower, upper = bootstrap_prediction_intervals(
-        builders[model_id],
+        builder,
         X_train,
         y_train,
         X_new,
@@ -127,6 +134,10 @@ def predict_risk(
         seed=DEFAULT_RANDOM_SEED,
         confidence_level=DEFAULT_CONFIDENCE_LEVEL,
     )
+    conformal_q = record["interval_metrics"].get("conformal_half_width")
+    if conformal_q is not None:
+        lower = np.minimum(lower, point - conformal_q)
+        upper = np.maximum(upper, point + conformal_q)
     score = float(np.clip(point[0], 0.0, 1.0))
     return {
         "composite_score": score,
@@ -271,14 +282,14 @@ def run_scenario(
     X_train = crop_rows[record["features"]].to_numpy(dtype=float)
     y_train = crop_rows["yield_t_ha"].to_numpy(dtype=float)
 
-    builders = model_builders(DEFAULT_RANDOM_SEED)
+    builder = tuned_builder("ridge", record.get("best_params"), DEFAULT_RANDOM_SEED)
     rng = np.random.default_rng(DEFAULT_RANDOM_SEED)
     samples = np.empty(n_simulations)
     X_stress = np.array([[stress_rain, stress_temp]])
     # Sample bootstrap models once, then draw parameter noise per simulation.
     for i in range(n_simulations):
         indices = rng.integers(0, len(X_train), size=len(X_train))
-        model = builders["ridge"]()
+        model = builder()
         model.fit(X_train[indices], y_train[indices])
         samples[i] = model.predict(X_stress)[0] + rng.normal(0.0, y_train.std(ddof=1) * 0.25)
 

@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
+    "dev": "node node_modules/next/dist/bin/next dev",
+    "build": "node node_modules/next/dist/bin/next build",
+    "start": "node node_modules/next/dist/bin/next start",
+    "lint": "node node_modules/next/dist/bin/next lint",
     "typecheck": "tsc --noEmit",
     "test": "vitest --pool=forks --maxWorkers=1 --minWorkers=1",
     "test:e2e": "playwright test",
@@ -20,14 +20,14 @@
     "clsx": "^2.1.0",
     "date-fns": "^3.6.0",
     "lucide-react": "^0.378.0",
-    "next": "^14.2.0",
+    "next": "^16.4.3",
     "plotly.js-dist-min": "^2.27.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "react-hook-form": "^7.51.0",
     "recharts": "^2.12.0",
     "tailwind-merge": "^2.3.0",
-    "zod": "^3.23.0",
+    "zod": "^4.6.7",
     "zustand": "^4.5.0"
   },
   "devDependencies": {
@@ -38,10 +38,10 @@
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
     "@types/recharts": "^2.0.0",
-    "@vitest/ui": "^1.5.0",
+    "@vitest/ui": "^5.0.5",
     "autoprefixer": "^10.4.0",
     "eslint": "^8.57.0",
-    "eslint-config-next": "^14.2.0",
+    "eslint-config-next": "^16.4.3",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.6",
     "jsdom": "^24.0.0",
@@ -50,6 +50,6 @@
     "prettier-plugin-tailwindcss": "^0.5.0",
     "tailwindcss": "^3.4.0",
     "typescript": "^5.4.0",
-    "vitest": "^1.5.0"
+    "vitest": "^5.0.5"
   }
 }

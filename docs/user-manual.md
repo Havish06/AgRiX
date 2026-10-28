@@ -19,8 +19,7 @@
 
 ## First run: load data and train models
 
-Analysis pages show an explicit "pipeline not run yet" state until data and
-models exist. Trigger it once, either:
+Analysis pages show an explicit "pipeline not run yet" state until data and models exist. Trigger it once, either:
 
 - from the **Settings** page (run-pipeline button), or
 - directly: `POST http://localhost:8000/api/pipeline/run`.

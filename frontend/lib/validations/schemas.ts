@@ -16,9 +16,9 @@ export const riskAssessmentRequestSchema = z.object({
   region_code: z.string().regex(/^[A-Z]{2,3}(-[A-Z]{2})?$/),
   crop_code: z.string().min(1).max(20),
   year: z.number().int().min(1960).max(2030),
-  financial_indicators: z.record(z.number()),
-  climate_variables: z.record(z.number()).optional(),
-  agricultural_variables: z.record(z.number()).optional(),
+  financial_indicators: z.record(z.string(), z.number()),
+  climate_variables: z.record(z.string(), z.number()).optional(),
+  agricultural_variables: z.record(z.string(), z.number()).optional(),
 });
 
 export type RiskAssessmentRequestInput = z.infer<typeof riskAssessmentRequestSchema>;
@@ -56,7 +56,7 @@ export const experimentConfigSchema = z.object({
   dataset_version: z.string(),
   feature_version: z.string(),
   model_type: z.enum(['linear', 'ridge', 'lasso', 'rf', 'xgboost']),
-  hyperparameters: z.record(z.unknown()),
+  hyperparameters: z.record(z.string(), z.unknown()),
   random_seed: z.number().int().default(42),
   train_period: z.string(),
   validation_period: z.string(),

@@ -1,5 +1,5 @@
 {
-  "trained_at": "2026-10-27T16:03:26.705412+00:00",
+  "trained_at": "2026-10-27T17:58:41.182527+00:00",
   "seed": 42,
   "yield_split": {
     "train_end": 2014,
@@ -15,7 +15,7 @@
       "task": "yield",
       "feature_set": "climate_only",
       "model_id": "mean_baseline",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "target": "yield_t_ha",
       "features": [
         "rainfall_gs_mm",
@@ -28,23 +28,32 @@
       "n_train": 25,
       "n_validation": 5,
       "n_test": 5,
+      "tuning": {
+        "method": "RandomizedSearchCV on chronological validation block",
+        "tuned": false,
+        "n_iter": 0,
+        "best_val_mae": null,
+        "best_iteration": null
+      },
+      "best_params": null,
       "validation_metrics": {
-        "mae": 2.1387319999999996,
-        "rmse": 2.174162346611678,
-        "r2": -29.93425917844774,
+        "mae": 1.7822766666666658,
+        "rmse": 1.8246417341890548,
+        "r2": -20.787679985033137,
         "n": 5
       },
       "test_metrics": {
-        "mae": 2.2734319999999997,
-        "rmse": 2.276845115554415,
-        "r2": -332.7937021287007,
+        "mae": 1.9169766666666657,
+        "rmse": 1.9210232070811744,
+        "r2": -236.61638504825956,
         "n": 5
       },
       "interval_metrics": {
         "picp_95": 0.0,
         "mpiw_95": 0.741582799999998,
         "confidence_level": 0.95,
-        "method": "case bootstrap"
+        "method": "case bootstrap (validation block too small to calibrate)",
+        "conformal_half_width": null
       },
       "feature_importance": [
         {
@@ -57,7 +66,7 @@
         }
       ],
       "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/yield__climate_only__mean_baseline.pkl",
-      "trained_at": "2026-10-27T15:58:01.221199+00:00",
+      "trained_at": "2026-10-27T17:52:54.752095+00:00",
       "limitations": [
         "National-level aggregates; no sub-national or farm-level resolution.",
         "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
@@ -72,7 +81,7 @@
       "task": "yield",
       "feature_set": "climate_only",
       "model_id": "linear",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "target": "yield_t_ha",
       "features": [
         "rainfall_gs_mm",
@@ -85,36 +94,45 @@
       "n_train": 25,
       "n_validation": 5,
       "n_test": 5,
+      "tuning": {
+        "method": "RandomizedSearchCV on chronological validation block",
+        "tuned": false,
+        "n_iter": 0,
+        "best_val_mae": null,
+        "best_iteration": null
+      },
+      "best_params": null,
       "validation_metrics": {
-        "mae": 1.9713683023675337,
-        "rmse": 2.01216619411723,
-        "r2": -25.496192855358313,
+        "mae": 1.3753918059428862,
+        "rmse": 1.49065574229831,
+        "r2": -13.541543088050986,
         "n": 5
       },
       "test_metrics": {
-        "mae": 2.090759455492808,
-        "rmse": 2.0941030450542635,
-        "r2": -281.3626559355171,
+        "mae": 1.676186716842149,
+        "rmse": 1.6980826879151274,
+        "r2": -184.6644820318747,
         "n": 5
       },
       "interval_metrics": {
         "picp_95": 0.0,
         "mpiw_95": 1.193107992331103,
         "confidence_level": 0.95,
-        "method": "case bootstrap"
+        "method": "case bootstrap (validation block too small to calibrate)",
+        "conformal_half_width": null
       },
       "feature_importance": [
         {
           "feature": "temp_gs_c",
-          "importance": 0.9339208552952186
+          "importance": 0.959470351493863
         },
         {
           "feature": "rainfall_gs_mm",
-          "importance": -0.0283649783915223
+          "importance": -0.7825529977839523
         }
       ],
       "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/yield__climate_only__linear.pkl",
-      "trained_at": "2026-10-27T15:58:01.433585+00:00",
+      "trained_at": "2026-10-27T17:52:54.928400+00:00",
       "limitations": [
         "National-level aggregates; no sub-national or farm-level resolution.",
         "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
@@ -129,7 +147,7 @@
       "task": "yield",
       "feature_set": "climate_only",
       "model_id": "ridge",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "target": "yield_t_ha",
       "features": [
         "rainfall_gs_mm",
@@ -142,36 +160,48 @@
       "n_train": 25,
       "n_validation": 5,
       "n_test": 5,
+      "tuning": {
+        "method": "RandomizedSearchCV on chronological validation block",
+        "tuned": true,
+        "n_iter": 10,
+        "best_val_mae": 1.9715419987001006,
+        "best_iteration": null
+      },
+      "best_params": {
+        "alpha": 0.01,
+        "random_state": 42
+      },
       "validation_metrics": {
-        "mae": 1.9870900296830865,
-        "rmse": 2.0265078568890633,
-        "r2": -25.875240751083812,
+        "mae": 1.3756767256303917,
+        "rmse": 1.4908327896633533,
+        "r2": -13.544997533910482,
         "n": 5
       },
       "test_metrics": {
-        "mae": 2.0985626364204486,
-        "rmse": 2.1016646445557,
-        "r2": -283.4055049396998,
+        "mae": 1.6762782655638915,
+        "rmse": 1.6981422243360773,
+        "r2": -184.67750141263258,
         "n": 5
       },
       "interval_metrics": {
         "picp_95": 0.0,
-        "mpiw_95": 1.141571027005415,
+        "mpiw_95": 1.1925161282793395,
         "confidence_level": 0.95,
-        "method": "case bootstrap"
+        "method": "case bootstrap (validation block too small to calibrate)",
+        "conformal_half_width": null
       },
       "feature_importance": [
         {
           "feature": "temp_gs_c",
-          "importance": 0.8885105634589536
+          "importance": 0.9602970097411714
         },
         {
           "feature": "rainfall_gs_mm",
-          "importance": -0.01740879581183208
+          "importance": -0.7812100461450541
         }
       ],
       "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/yield__climate_only__ridge.pkl",
-      "trained_at": "2026-10-27T15:58:01.629411+00:00",
+      "trained_at": "2026-10-27T17:52:55.128595+00:00",
       "limitations": [
         "National-level aggregates; no sub-national or farm-level resolution.",
         "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
@@ -186,7 +216,7 @@
       "task": "yield",
       "feature_set": "climate_only",
       "model_id": "random_forest",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "target": "yield_t_ha",
       "features": [
         "rainfall_gs_mm",
@@ -199,36 +229,50 @@
       "n_train": 25,
       "n_validation": 5,
       "n_test": 5,
+      "tuning": {
+        "method": "RandomizedSearchCV on chronological validation block",
+        "tuned": true,
+        "n_iter": 10,
+        "best_val_mae": 2.0097117920238103,
+        "best_iteration": null
+      },
+      "best_params": {
+        "n_estimators": 200,
+        "min_samples_leaf": 2,
+        "max_features": 1.0,
+        "random_state": 42
+      },
       "validation_metrics": {
-        "mae": 2.0540129666229587,
-        "rmse": 2.095895171223671,
-        "r2": -27.747156535564656,
+        "mae": 0.9465538636111102,
+        "rmse": 1.0529946536960466,
+        "r2": -6.256181078098524,
         "n": 5
       },
       "test_metrics": {
-        "mae": 2.3808673747835485,
-        "rmse": 2.3860660953524033,
-        "r2": -365.5861906898967,
+        "mae": 2.0699516498232327,
+        "rmse": 2.0879983886797344,
+        "r2": -279.71878791568395,
         "n": 5
       },
       "interval_metrics": {
         "picp_95": 0.0,
-        "mpiw_95": 1.0574446745631179,
+        "mpiw_95": 1.3285362307303363,
         "confidence_level": 0.95,
-        "method": "case bootstrap"
+        "method": "case bootstrap (validation block too small to calibrate)",
+        "conformal_half_width": null
       },
       "feature_importance": [
         {
           "feature": "rainfall_gs_mm",
-          "importance": -0.12518893775293236
+          "importance": 0.6796153644765468
         },
         {
           "feature": "temp_gs_c",
-          "importance": -0.9073048701758524
+          "importance": -0.9505585790835142
         }
       ],
       "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/yield__climate_only__random_forest.pkl",
-      "trained_at": "2026-10-27T15:58:59.685110+00:00",
+      "trained_at": "2026-10-27T17:53:28.435624+00:00",
       "limitations": [
         "National-level aggregates; no sub-national or farm-level resolution.",
         "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
@@ -243,7 +287,7 @@
       "task": "yield",
       "feature_set": "climate_only",
       "model_id": "xgboost",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "target": "yield_t_ha",
       "features": [
         "rainfall_gs_mm",
@@ -256,36 +300,53 @@
       "n_train": 25,
       "n_validation": 5,
       "n_test": 5,
+      "tuning": {
+        "method": "RandomizedSearchCV on chronological validation block",
+        "tuned": true,
+        "n_iter": 10,
+        "best_val_mae": 2.00107372467041,
+        "best_iteration": 107
+      },
+      "best_params": {
+        "subsample": 1.0,
+        "reg_lambda": 1.0,
+        "n_estimators": 400,
+        "max_depth": 5,
+        "learning_rate": 0.05,
+        "colsample_bytree": 0.85,
+        "random_state": 42
+      },
       "validation_metrics": {
-        "mae": 2.027468282623291,
-        "rmse": 2.072809543032,
-        "r2": -27.117362403512484,
+        "mae": 0.27092472732543926,
+        "rmse": 0.31276507840657447,
+        "r2": 0.35983446052783963,
         "n": 5
       },
       "test_metrics": {
-        "mae": 2.3454492274475096,
-        "rmse": 2.4191075594464495,
-        "r2": -375.8092182589086,
+        "mae": 2.125225037689209,
+        "rmse": 2.1877654019488997,
+        "r2": -307.18582650707293,
         "n": 5
       },
       "interval_metrics": {
         "picp_95": 0.0,
-        "mpiw_95": 1.6977253746986392,
+        "mpiw_95": 1.6408980989456179,
         "confidence_level": 0.95,
-        "method": "case bootstrap"
+        "method": "case bootstrap (validation block too small to calibrate)",
+        "conformal_half_width": null
       },
       "feature_importance": [
         {
-          "feature": "temp_gs_c",
-          "importance": -8.604369138450034
+          "feature": "rainfall_gs_mm",
+          "importance": -6.826739377017975
         },
         {
-          "feature": "rainfall_gs_mm",
-          "importance": -9.097487817132128
+          "feature": "temp_gs_c",
+          "importance": -7.406754861218133
         }
       ],
       "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/yield__climate_only__xgboost.pkl",
-      "trained_at": "2026-10-27T15:59:08.093177+00:00",
+      "trained_at": "2026-10-27T17:53:41.133078+00:00",
       "limitations": [
         "National-level aggregates; no sub-national or farm-level resolution.",
         "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
@@ -300,7 +361,7 @@
       "task": "yield",
       "feature_set": "climate_and_trend",
       "model_id": "mean_baseline",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "target": "yield_t_ha",
       "features": [
         "rainfall_gs_mm",
@@ -314,23 +375,32 @@
       "n_train": 25,
       "n_validation": 5,
       "n_test": 5,
+      "tuning": {
+        "method": "RandomizedSearchCV on chronological validation block",
+        "tuned": false,
+        "n_iter": 0,
+        "best_val_mae": null,
+        "best_iteration": null
+      },
+      "best_params": null,
       "validation_metrics": {
-        "mae": 2.1387319999999996,
-        "rmse": 2.174162346611678,
-        "r2": -29.93425917844774,
+        "mae": 1.7822766666666658,
+        "rmse": 1.8246417341890548,
+        "r2": -20.787679985033137,
         "n": 5
       },
       "test_metrics": {
-        "mae": 2.2734319999999997,
-        "rmse": 2.276845115554415,
-        "r2": -332.7937021287007,
+        "mae": 1.9169766666666657,
+        "rmse": 1.9210232070811744,
+        "r2": -236.61638504825956,
         "n": 5
       },
       "interval_metrics": {
         "picp_95": 0.0,
         "mpiw_95": 0.741582799999998,
         "confidence_level": 0.95,
-        "method": "case bootstrap"
+        "method": "case bootstrap (validation block too small to calibrate)",
+        "conformal_half_width": null
       },
       "feature_importance": [
         {
@@ -347,7 +417,7 @@
         }
       ],
       "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/yield__climate_and_trend__mean_baseline.pkl",
-      "trained_at": "2026-10-27T15:59:08.137674+00:00",
+      "trained_at": "2026-10-27T17:53:41.180432+00:00",
       "limitations": [
         "National-level aggregates; no sub-national or farm-level resolution.",
         "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
@@ -362,7 +432,7 @@
       "task": "yield",
       "feature_set": "climate_and_trend",
       "model_id": "linear",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "target": "yield_t_ha",
       "features": [
         "rainfall_gs_mm",
@@ -376,40 +446,49 @@
       "n_train": 25,
       "n_validation": 5,
       "n_test": 5,
+      "tuning": {
+        "method": "RandomizedSearchCV on chronological validation block",
+        "tuned": false,
+        "n_iter": 0,
+        "best_val_mae": null,
+        "best_iteration": null
+      },
+      "best_params": null,
       "validation_metrics": {
-        "mae": 0.4712591164714288,
-        "rmse": 0.6276488824415323,
-        "r2": -1.578037910386005,
+        "mae": 0.39652788950917267,
+        "rmse": 0.47042912813131355,
+        "r2": -0.4482521734700988,
         "n": 5
       },
       "test_metrics": {
-        "mae": 0.09110993063067455,
-        "rmse": 0.11843814809325834,
-        "r2": 0.0967782690835437,
+        "mae": 0.2520022264898515,
+        "rmse": 0.2748533011261065,
+        "r2": -3.8642185152407365,
         "n": 5
       },
       "interval_metrics": {
         "picp_95": 1.0,
         "mpiw_95": 1.0510021309486937,
         "confidence_level": 0.95,
-        "method": "case bootstrap"
+        "method": "case bootstrap (validation block too small to calibrate)",
+        "conformal_half_width": null
       },
       "feature_importance": [
         {
           "feature": "year",
-          "importance": 4.22730290985575
+          "importance": 4.136995741020387
         },
         {
           "feature": "temp_gs_c",
-          "importance": 0.5460809684754171
+          "importance": 0.5867200478926125
         },
         {
           "feature": "rainfall_gs_mm",
-          "importance": -0.06193398922353246
+          "importance": -0.023836669570709023
         }
       ],
       "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/yield__climate_and_trend__linear.pkl",
-      "trained_at": "2026-10-27T15:59:08.328575+00:00",
+      "trained_at": "2026-10-27T17:53:41.380635+00:00",
       "limitations": [
         "National-level aggregates; no sub-national or farm-level resolution.",
         "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
@@ -424,7 +503,7 @@
       "task": "yield",
       "feature_set": "climate_and_trend",
       "model_id": "ridge",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "target": "yield_t_ha",
       "features": [
         "rainfall_gs_mm",
@@ -438,40 +517,52 @@
       "n_train": 25,
       "n_validation": 5,
       "n_test": 5,
+      "tuning": {
+        "method": "RandomizedSearchCV on chronological validation block",
+        "tuned": true,
+        "n_iter": 10,
+        "best_val_mae": 0.4718949210113831,
+        "best_iteration": null
+      },
+      "best_params": {
+        "alpha": 0.01,
+        "random_state": 42
+      },
       "validation_metrics": {
-        "mae": 0.532842115196029,
-        "rmse": 0.6712866036011977,
-        "r2": -1.948979410649152,
+        "mae": 0.39657197678733064,
+        "rmse": 0.4705545665702129,
+        "r2": -0.44902462016315137,
         "n": 5
       },
       "test_metrics": {
-        "mae": 0.1426554827513499,
-        "rmse": 0.16948270066012808,
-        "r2": -0.8495322700445158,
+        "mae": 0.2513734952695327,
+        "rmse": 0.2742631754423347,
+        "r2": -3.8433534304713453,
         "n": 5
       },
       "interval_metrics": {
         "picp_95": 1.0,
-        "mpiw_95": 1.042702912103199,
+        "mpiw_95": 1.0508340229796622,
         "confidence_level": 0.95,
-        "method": "case bootstrap"
+        "method": "case bootstrap (validation block too small to calibrate)",
+        "conformal_half_width": null
       },
       "feature_importance": [
         {
           "feature": "year",
-          "importance": 3.700467843917893
+          "importance": 4.131925608479001
         },
         {
           "feature": "temp_gs_c",
-          "importance": 0.4125041670878759
+          "importance": 0.585286480927554
         },
         {
           "feature": "rainfall_gs_mm",
-          "importance": -0.0385788772729613
+          "importance": -0.023653548752757915
         }
       ],
       "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/yield__climate_and_trend__ridge.pkl",
-      "trained_at": "2026-10-27T15:59:08.529457+00:00",
+      "trained_at": "2026-10-27T17:53:41.590315+00:00",
       "limitations": [
         "National-level aggregates; no sub-national or farm-level resolution.",
         "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
@@ -486,7 +577,7 @@
       "task": "yield",
       "feature_set": "climate_and_trend",
       "model_id": "random_forest",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "target": "yield_t_ha",
       "features": [
         "rainfall_gs_mm",
@@ -500,28 +591,42 @@
       "n_train": 25,
       "n_validation": 5,
       "n_test": 5,
+      "tuning": {
+        "method": "RandomizedSearchCV on chronological validation block",
+        "tuned": true,
+        "n_iter": 10,
+        "best_val_mae": 1.073510608630951,
+        "best_iteration": null
+      },
+      "best_params": {
+        "n_estimators": 400,
+        "min_samples_leaf": 2,
+        "max_features": 1.0,
+        "random_state": 42
+      },
       "validation_metrics": {
-        "mae": 1.2366858307097082,
-        "rmse": 1.322155239639659,
-        "r2": -10.439859233220272,
+        "mae": 0.19620212138888923,
+        "rmse": 0.25876413974435886,
+        "r2": 0.5618084882798715,
         "n": 5
       },
       "test_metrics": {
-        "mae": 1.5806687053853137,
-        "rmse": 1.590019552995552,
-        "r2": -161.78564013871534,
+        "mae": 0.12080734513888843,
+        "rmse": 0.1423133400068994,
+        "r2": -0.30407444502538317,
         "n": 5
       },
       "interval_metrics": {
         "picp_95": 0.0,
-        "mpiw_95": 1.0272226907498505,
+        "mpiw_95": 1.0617340608971082,
         "confidence_level": 0.95,
-        "method": "case bootstrap"
+        "method": "case bootstrap (validation block too small to calibrate)",
+        "conformal_half_width": null
       },
       "feature_importance": [
         {
           "feature": "rainfall_gs_mm",
-          "importance": 0.45219763366102084
+          "importance": 0.028735843885383684
         },
         {
           "feature": "year",
@@ -529,11 +634,11 @@
         },
         {
           "feature": "temp_gs_c",
-          "importance": -0.6600730748516241
+          "importance": -0.0050389629665416715
         }
       ],
       "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/yield__climate_and_trend__random_forest.pkl",
-      "trained_at": "2026-10-27T16:00:10.034872+00:00",
+      "trained_at": "2026-10-27T17:54:39.812205+00:00",
       "limitations": [
         "National-level aggregates; no sub-national or farm-level resolution.",
         "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
@@ -548,7 +653,7 @@
       "task": "yield",
       "feature_set": "climate_and_trend",
       "model_id": "xgboost",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "target": "yield_t_ha",
       "features": [
         "rainfall_gs_mm",
@@ -562,32 +667,49 @@
       "n_train": 25,
       "n_validation": 5,
       "n_test": 5,
+      "tuning": {
+        "method": "RandomizedSearchCV on chronological validation block",
+        "tuned": true,
+        "n_iter": 10,
+        "best_val_mae": 0.7733410519409178,
+        "best_iteration": 67
+      },
+      "best_params": {
+        "subsample": 1.0,
+        "reg_lambda": 0.0,
+        "n_estimators": 400,
+        "max_depth": 5,
+        "learning_rate": 0.12,
+        "colsample_bytree": 1.0,
+        "random_state": 42
+      },
       "validation_metrics": {
-        "mae": 1.022424871368408,
-        "rmse": 1.1039012420101662,
-        "r2": -6.974734324620877,
+        "mae": 0.00041453063964826955,
+        "rmse": 0.0005498594516012027,
+        "r2": 0.9999980213946964,
         "n": 5
       },
       "test_metrics": {
-        "mae": 1.4034421626281737,
-        "rmse": 1.4168895458167843,
-        "r2": -128.2656557316985,
+        "mae": 0.13337481811523483,
+        "rmse": 0.1667546126177606,
+        "r2": -0.7904692771150394,
         "n": 5
       },
       "interval_metrics": {
         "picp_95": 0.0,
-        "mpiw_95": 1.1447618699073794,
+        "mpiw_95": 1.5122868704795835,
         "confidence_level": 0.95,
-        "method": "case bootstrap"
+        "method": "case bootstrap (validation block too small to calibrate)",
+        "conformal_half_width": null
       },
       "feature_importance": [
         {
           "feature": "rainfall_gs_mm",
-          "importance": 3.8432312515771074
+          "importance": 0.08182018544782987
         },
         {
           "feature": "temp_gs_c",
-          "importance": 2.5207996511697077
+          "importance": 0.0002625910740187143
         },
         {
           "feature": "year",
@@ -595,7 +717,7 @@
         }
       ],
       "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/yield__climate_and_trend__xgboost.pkl",
-      "trained_at": "2026-10-27T16:00:17.210441+00:00",
+      "trained_at": "2026-10-27T17:54:46.817086+00:00",
       "limitations": [
         "National-level aggregates; no sub-national or farm-level resolution.",
         "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
@@ -610,7 +732,7 @@
       "task": "risk",
       "feature_set": "finance_only",
       "model_id": "mean_baseline",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "target": "credit_stress_rate",
       "features": [
         "interest_rate_pct",
@@ -626,23 +748,32 @@
       "n_train": 208,
       "n_validation": 40,
       "n_test": 40,
+      "tuning": {
+        "method": "RandomizedSearchCV on chronological validation block",
+        "tuned": false,
+        "n_iter": 0,
+        "best_val_mae": null,
+        "best_iteration": null
+      },
+      "best_params": null,
       "validation_metrics": {
-        "mae": 0.09614002884615387,
-        "rmse": 0.11979550798114748,
-        "r2": -0.013280998024169266,
+        "mae": 0.09557885483870968,
+        "rmse": 0.11956245456490622,
+        "r2": -0.009342304541454904,
         "n": 40
       },
       "test_metrics": {
-        "mae": 0.08617377884615385,
-        "rmse": 0.10588637256380438,
-        "r2": -0.09650552324812312,
+        "mae": 0.0855611310483871,
+        "rmse": 0.10525132350095269,
+        "r2": -0.08339247255428428,
         "n": 40
       },
       "interval_metrics": {
-        "picp_95": 0.2,
-        "mpiw_95": 0.02998732331730769,
+        "picp_95": 1.0,
+        "mpiw_95": 0.459025,
         "confidence_level": 0.95,
-        "method": "case bootstrap"
+        "method": "split-conformal (validation residuals) + case bootstrap",
+        "conformal_half_width": 0.22951249999999998
       },
       "feature_importance": [
         {
@@ -667,7 +798,7 @@
         }
       ],
       "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/risk__finance_only__mean_baseline.pkl",
-      "trained_at": "2026-10-27T16:00:17.260558+00:00",
+      "trained_at": "2026-10-27T17:54:46.867541+00:00",
       "limitations": [
         "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
         "Results must not be quoted as empirical default probabilities.",
@@ -681,7 +812,7 @@
       "task": "risk",
       "feature_set": "finance_only",
       "model_id": "linear",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "target": "credit_stress_rate",
       "features": [
         "interest_rate_pct",
@@ -697,48 +828,57 @@
       "n_train": 208,
       "n_validation": 40,
       "n_test": 40,
+      "tuning": {
+        "method": "RandomizedSearchCV on chronological validation block",
+        "tuned": false,
+        "n_iter": 0,
+        "best_val_mae": null,
+        "best_iteration": null
+      },
+      "best_params": null,
       "validation_metrics": {
-        "mae": 0.08509049568349021,
-        "rmse": 0.10392958189538642,
-        "r2": 0.23734663321906924,
+        "mae": 0.07376246064551314,
+        "rmse": 0.0906278156695209,
+        "r2": 0.4200749656764783,
         "n": 40
       },
       "test_metrics": {
-        "mae": 0.0799973196678763,
-        "rmse": 0.10032707523140597,
-        "r2": 0.015610469901268798,
+        "mae": 0.06801791879821165,
+        "rmse": 0.08438873951124301,
+        "r2": 0.3035343807994587,
         "n": 40
       },
       "interval_metrics": {
-        "picp_95": 0.275,
-        "mpiw_95": 0.08556482593035353,
+        "picp_95": 1.0,
+        "mpiw_95": 0.5071848967046172,
         "confidence_level": 0.95,
-        "method": "case bootstrap"
+        "method": "split-conformal (validation residuals) + case bootstrap",
+        "conformal_half_width": 0.2460803450222429
       },
       "feature_importance": [
         {
           "feature": "interest_rate_pct",
-          "importance": 0.4547320923417195
-        },
-        {
-          "feature": "log_loan_exposure",
-          "importance": 0.14202918533233633
-        },
-        {
-          "feature": "loan_exposure_musd",
-          "importance": 0.11042209566666243
+          "importance": 0.6162245070200929
         },
         {
           "feature": "debt_service_coverage",
-          "importance": 0.10846523552350314
+          "importance": 0.09408638581896847
+        },
+        {
+          "feature": "loan_exposure_musd",
+          "importance": 0.017916129463466445
         },
         {
           "feature": "commodity_price_index",
-          "importance": 0.0068655711761238195
+          "importance": 0.002084703724758663
+        },
+        {
+          "feature": "log_loan_exposure",
+          "importance": -0.00528295441031178
         }
       ],
       "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/risk__finance_only__linear.pkl",
-      "trained_at": "2026-10-27T16:00:17.434465+00:00",
+      "trained_at": "2026-10-27T17:54:47.039646+00:00",
       "limitations": [
         "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
         "Results must not be quoted as empirical default probabilities.",
@@ -752,7 +892,7 @@
       "task": "risk",
       "feature_set": "finance_only",
       "model_id": "ridge",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "target": "credit_stress_rate",
       "features": [
         "interest_rate_pct",
@@ -768,48 +908,60 @@
       "n_train": 208,
       "n_validation": 40,
       "n_test": 40,
+      "tuning": {
+        "method": "RandomizedSearchCV on chronological validation block",
+        "tuned": true,
+        "n_iter": 26,
+        "best_val_mae": 0.0836700021995058,
+        "best_iteration": null
+      },
+      "best_params": {
+        "alpha": 25.11886431509582,
+        "random_state": 42
+      },
       "validation_metrics": {
-        "mae": 0.08489135307592326,
-        "rmse": 0.10349557327023287,
-        "r2": 0.24370299511586568,
+        "mae": 0.0754855636369347,
+        "rmse": 0.09178484069442101,
+        "r2": 0.40517289730759987,
         "n": 40
       },
       "test_metrics": {
-        "mae": 0.07955987433053786,
-        "rmse": 0.09938545671468879,
-        "r2": 0.034001708991664326,
+        "mae": 0.06847507482638862,
+        "rmse": 0.08408783683982513,
+        "r2": 0.30849226357913095,
         "n": 40
       },
       "interval_metrics": {
-        "picp_95": 0.225,
-        "mpiw_95": 0.08131448551739437,
+        "picp_95": 1.0,
+        "mpiw_95": 0.4328948541567807,
         "confidence_level": 0.95,
-        "method": "case bootstrap"
+        "method": "split-conformal (validation residuals) + case bootstrap",
+        "conformal_half_width": 0.21289502321187576
       },
       "feature_importance": [
         {
           "feature": "interest_rate_pct",
-          "importance": 0.45561778684468657
-        },
-        {
-          "feature": "log_loan_exposure",
-          "importance": 0.1255023932094333
+          "importance": 0.5559361532468479
         },
         {
           "feature": "debt_service_coverage",
-          "importance": 0.1072452327898656
+          "importance": 0.07958903667130911
         },
         {
           "feature": "loan_exposure_musd",
-          "importance": 0.09850497540299351
+          "importance": 0.005207082802899743
         },
         {
           "feature": "commodity_price_index",
-          "importance": 0.006713898350966585
+          "importance": 0.0016601606973725036
+        },
+        {
+          "feature": "log_loan_exposure",
+          "importance": -0.00624389111518372
         }
       ],
       "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/risk__finance_only__ridge.pkl",
-      "trained_at": "2026-10-27T16:00:17.625862+00:00",
+      "trained_at": "2026-10-27T17:54:47.258218+00:00",
       "limitations": [
         "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
         "Results must not be quoted as empirical default probabilities.",
@@ -823,7 +975,7 @@
       "task": "risk",
       "feature_set": "finance_only",
       "model_id": "random_forest",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "target": "credit_stress_rate",
       "features": [
         "interest_rate_pct",
@@ -839,48 +991,62 @@
       "n_train": 208,
       "n_validation": 40,
       "n_test": 40,
+      "tuning": {
+        "method": "RandomizedSearchCV on chronological validation block",
+        "tuned": true,
+        "n_iter": 45,
+        "best_val_mae": 0.07700001966242762,
+        "best_iteration": null
+      },
+      "best_params": {
+        "n_estimators": 400,
+        "min_samples_leaf": 8,
+        "max_features": 0.6,
+        "random_state": 42
+      },
       "validation_metrics": {
-        "mae": 0.07904670986274051,
-        "rmse": 0.09335285334949335,
-        "r2": 0.38467575836119017,
+        "mae": 0.06490217928944461,
+        "rmse": 0.07680638300751087,
+        "r2": 0.5834727118297325,
         "n": 40
       },
       "test_metrics": {
-        "mae": 0.07587384172999652,
-        "rmse": 0.09019707822804597,
-        "r2": 0.20436180837816642,
+        "mae": 0.06855979459738297,
+        "rmse": 0.08305317264498377,
+        "r2": 0.32540497052250483,
         "n": 40
       },
       "interval_metrics": {
-        "picp_95": 0.375,
-        "mpiw_95": 0.09731423728942638,
+        "picp_95": 1.0,
+        "mpiw_95": 0.36909586671715744,
         "confidence_level": 0.95,
-        "method": "case bootstrap"
+        "method": "split-conformal (validation residuals) + case bootstrap",
+        "conformal_half_width": 0.18454793335857872
       },
       "feature_importance": [
         {
           "feature": "interest_rate_pct",
-          "importance": 0.6670186354353648
+          "importance": 0.722098458021771
         },
         {
           "feature": "debt_service_coverage",
-          "importance": 0.06656746550565612
+          "importance": 0.08107129561437272
         },
         {
           "feature": "commodity_price_index",
-          "importance": -0.005760832005057203
+          "importance": 0.012084262641133858
         },
         {
           "feature": "log_loan_exposure",
-          "importance": -0.020116371394572043
+          "importance": -0.01087546788006689
         },
         {
           "feature": "loan_exposure_musd",
-          "importance": -0.022963883501218817
+          "importance": -0.011340063001323508
         }
       ],
       "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/risk__finance_only__random_forest.pkl",
-      "trained_at": "2026-10-27T16:01:33.017181+00:00",
+      "trained_at": "2026-10-27T17:56:09.623737+00:00",
       "limitations": [
         "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
         "Results must not be quoted as empirical default probabilities.",
@@ -894,7 +1060,7 @@
       "task": "risk",
       "feature_set": "finance_only",
       "model_id": "xgboost",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "target": "credit_stress_rate",
       "features": [
         "interest_rate_pct",
@@ -910,48 +1076,65 @@
       "n_train": 208,
       "n_validation": 40,
       "n_test": 40,
+      "tuning": {
+        "method": "RandomizedSearchCV on chronological validation block",
+        "tuned": true,
+        "n_iter": 80,
+        "best_val_mae": 0.07542021757411957,
+        "best_iteration": 208
+      },
+      "best_params": {
+        "subsample": 1.0,
+        "reg_lambda": 5.0,
+        "n_estimators": 800,
+        "max_depth": 4,
+        "learning_rate": 0.03,
+        "colsample_bytree": 0.7,
+        "random_state": 42
+      },
       "validation_metrics": {
-        "mae": 0.08334790429520607,
-        "rmse": 0.09812757483410157,
-        "r2": 0.32012203968790776,
+        "mae": 0.04275116907024384,
+        "rmse": 0.053188841279693026,
+        "r2": 0.8002485731793482,
         "n": 40
       },
       "test_metrics": {
-        "mae": 0.08639828158712386,
-        "rmse": 0.10180891140078699,
-        "r2": -0.013683249156856592,
+        "mae": 0.07785258668398856,
+        "rmse": 0.09197894265862876,
+        "r2": 0.17261525713909387,
         "n": 40
       },
       "interval_metrics": {
-        "picp_95": 0.4,
-        "mpiw_95": 0.12316493241116407,
+        "picp_95": 1.0,
+        "mpiw_95": 0.4994281567633152,
         "confidence_level": 0.95,
-        "method": "case bootstrap"
+        "method": "split-conformal (validation residuals) + case bootstrap",
+        "conformal_half_width": 0.24971408071565626
       },
       "feature_importance": [
         {
           "feature": "interest_rate_pct",
-          "importance": 0.5628202266077119
+          "importance": 0.6870443404968812
         },
         {
           "feature": "debt_service_coverage",
-          "importance": -0.010812704006356044
+          "importance": 0.01690574951853475
         },
         {
           "feature": "log_loan_exposure",
-          "importance": -0.023033117586298002
+          "importance": -0.018347770603932258
         },
         {
           "feature": "commodity_price_index",
-          "importance": -0.02788258441468592
+          "importance": -0.04601166395779197
         },
         {
           "feature": "loan_exposure_musd",
-          "importance": -0.13433165535331865
+          "importance": -0.04822261629812983
         }
       ],
       "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/risk__finance_only__xgboost.pkl",
-      "trained_at": "2026-10-27T16:01:43.179893+00:00",
+      "trained_at": "2026-10-27T17:56:43.174432+00:00",
       "limitations": [
         "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
         "Results must not be quoted as empirical default probabilities.",
@@ -965,7 +1148,7 @@
       "task": "risk",
       "feature_set": "combined",
       "model_id": "mean_baseline",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "target": "credit_stress_rate",
       "features": [
         "interest_rate_pct",
@@ -984,23 +1167,32 @@
       "n_train": 208,
       "n_validation": 40,
       "n_test": 40,
+      "tuning": {
+        "method": "RandomizedSearchCV on chronological validation block",
+        "tuned": false,
+        "n_iter": 0,
+        "best_val_mae": null,
+        "best_iteration": null
+      },
+      "best_params": null,
       "validation_metrics": {
-        "mae": 0.09614002884615387,
-        "rmse": 0.11979550798114748,
-        "r2": -0.013280998024169266,
+        "mae": 0.09557885483870968,
+        "rmse": 0.11956245456490622,
+        "r2": -0.009342304541454904,
         "n": 40
       },
       "test_metrics": {
-        "mae": 0.08617377884615385,
-        "rmse": 0.10588637256380438,
-        "r2": -0.09650552324812312,
+        "mae": 0.0855611310483871,
+        "rmse": 0.10525132350095269,
+        "r2": -0.08339247255428428,
         "n": 40
       },
       "interval_metrics": {
-        "picp_95": 0.2,
-        "mpiw_95": 0.02998732331730769,
+        "picp_95": 1.0,
+        "mpiw_95": 0.459025,
         "confidence_level": 0.95,
-        "method": "case bootstrap"
+        "method": "split-conformal (validation residuals) + case bootstrap",
+        "conformal_half_width": 0.22951249999999998
       },
       "feature_importance": [
         {
@@ -1037,7 +1229,7 @@
         }
       ],
       "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/risk__combined__mean_baseline.pkl",
-      "trained_at": "2026-10-27T16:01:43.250439+00:00",
+      "trained_at": "2026-10-27T17:56:43.241819+00:00",
       "limitations": [
         "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
         "Results must not be quoted as empirical default probabilities.",
@@ -1051,7 +1243,7 @@
       "task": "risk",
       "feature_set": "combined",
       "model_id": "linear",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "target": "credit_stress_rate",
       "features": [
         "interest_rate_pct",
@@ -1070,60 +1262,69 @@
       "n_train": 208,
       "n_validation": 40,
       "n_test": 40,
+      "tuning": {
+        "method": "RandomizedSearchCV on chronological validation block",
+        "tuned": false,
+        "n_iter": 0,
+        "best_val_mae": null,
+        "best_iteration": null
+      },
+      "best_params": null,
       "validation_metrics": {
-        "mae": 0.08640180770110274,
-        "rmse": 0.10568705973228458,
-        "r2": 0.21133519012669255,
+        "mae": 0.0735948117315477,
+        "rmse": 0.09015993387371338,
+        "r2": 0.42604743569573067,
         "n": 40
       },
       "test_metrics": {
-        "mae": 0.08043643643596819,
-        "rmse": 0.10246783760870443,
-        "r2": -0.02684720453332412,
+        "mae": 0.06823519884539178,
+        "rmse": 0.08459249408454872,
+        "r2": 0.3001671217866827,
         "n": 40
       },
       "interval_metrics": {
-        "picp_95": 0.325,
-        "mpiw_95": 0.09471830099357002,
+        "picp_95": 1.0,
+        "mpiw_95": 0.5060119612769596,
         "confidence_level": 0.95,
-        "method": "case bootstrap"
+        "method": "split-conformal (validation residuals) + case bootstrap",
+        "conformal_half_width": 0.2447148035147099
       },
       "feature_importance": [
         {
           "feature": "interest_rate_pct",
-          "importance": 0.5023167531527039
-        },
-        {
-          "feature": "log_loan_exposure",
-          "importance": 0.1998375926391333
-        },
-        {
-          "feature": "loan_exposure_musd",
-          "importance": 0.1537335853795317
+          "importance": 0.6220620393450834
         },
         {
           "feature": "debt_service_coverage",
-          "importance": 0.11070484405334584
+          "importance": 0.09261949819957822
+        },
+        {
+          "feature": "loan_exposure_musd",
+          "importance": 0.01589418545036363
         },
         {
           "feature": "commodity_price_index",
-          "importance": 0.006301286209152557
-        },
-        {
-          "feature": "rainfall_gs_mm",
-          "importance": 0.00025745734716218214
-        },
-        {
-          "feature": "temp_gs_c",
-          "importance": -0.0001001605157945562
+          "importance": 0.0014727790228271308
         },
         {
           "feature": "yield_anomaly",
-          "importance": -0.0012082937677944771
+          "importance": 0.00014144122623050982
+        },
+        {
+          "feature": "temp_gs_c",
+          "importance": -0.0015402674719502628
+        },
+        {
+          "feature": "rainfall_gs_mm",
+          "importance": -0.004596874974776366
+        },
+        {
+          "feature": "log_loan_exposure",
+          "importance": -0.0057788521888566865
         }
       ],
       "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/risk__combined__linear.pkl",
-      "trained_at": "2026-10-27T16:01:43.455419+00:00",
+      "trained_at": "2026-10-27T17:56:43.428120+00:00",
       "limitations": [
         "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
         "Results must not be quoted as empirical default probabilities.",
@@ -1137,7 +1338,7 @@
       "task": "risk",
       "feature_set": "combined",
       "model_id": "ridge",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "target": "credit_stress_rate",
       "features": [
         "interest_rate_pct",
@@ -1156,60 +1357,72 @@
       "n_train": 208,
       "n_validation": 40,
       "n_test": 40,
+      "tuning": {
+        "method": "RandomizedSearchCV on chronological validation block",
+        "tuned": true,
+        "n_iter": 26,
+        "best_val_mae": 0.08394515783841681,
+        "best_iteration": null
+      },
+      "best_params": {
+        "alpha": 25.11886431509582,
+        "random_state": 42
+      },
       "validation_metrics": {
-        "mae": 0.08606916413863995,
-        "rmse": 0.10501273322138956,
-        "r2": 0.22136708966815355,
+        "mae": 0.07522515296987566,
+        "rmse": 0.09099625209977935,
+        "r2": 0.41535015081619975,
         "n": 40
       },
       "test_metrics": {
-        "mae": 0.07983215578404423,
-        "rmse": 0.10113787577289295,
-        "r2": -0.00036465325996859477,
+        "mae": 0.06866244660045544,
+        "rmse": 0.08423798501056307,
+        "r2": 0.3060205310587705,
         "n": 40
       },
       "interval_metrics": {
-        "picp_95": 0.325,
-        "mpiw_95": 0.08955541990738193,
+        "picp_95": 1.0,
+        "mpiw_95": 0.42171493880547545,
         "confidence_level": 0.95,
-        "method": "case bootstrap"
+        "method": "split-conformal (validation residuals) + case bootstrap",
+        "conformal_half_width": 0.20741808237309503
       },
       "feature_importance": [
         {
           "feature": "interest_rate_pct",
-          "importance": 0.49863461995004954
-        },
-        {
-          "feature": "log_loan_exposure",
-          "importance": 0.17392583069475917
-        },
-        {
-          "feature": "loan_exposure_musd",
-          "importance": 0.13484634935252518
+          "importance": 0.5064486032391794
         },
         {
           "feature": "debt_service_coverage",
-          "importance": 0.10903516726808375
+          "importance": 0.0760758967440255
         },
         {
-          "feature": "commodity_price_index",
-          "importance": 0.006198185800319711
-        },
-        {
-          "feature": "rainfall_gs_mm",
-          "importance": -0.00010533782620166798
+          "feature": "loan_exposure_musd",
+          "importance": 0.005464672008161442
         },
         {
           "feature": "temp_gs_c",
-          "importance": -0.0004763276701744923
+          "importance": 0.003568475927281256
+        },
+        {
+          "feature": "commodity_price_index",
+          "importance": 0.001314726952763845
         },
         {
           "feature": "yield_anomaly",
-          "importance": -0.0011532097949962683
+          "importance": 6.252626575156128e-05
+        },
+        {
+          "feature": "rainfall_gs_mm",
+          "importance": -0.004969405369711044
+        },
+        {
+          "feature": "log_loan_exposure",
+          "importance": -0.005623269717460411
         }
       ],
       "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/risk__combined__ridge.pkl",
-      "trained_at": "2026-10-27T16:01:43.665022+00:00",
+      "trained_at": "2026-10-27T17:56:43.681183+00:00",
       "limitations": [
         "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
         "Results must not be quoted as empirical default probabilities.",
@@ -1223,7 +1436,7 @@
       "task": "risk",
       "feature_set": "combined",
       "model_id": "random_forest",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "target": "credit_stress_rate",
       "features": [
         "interest_rate_pct",
@@ -1242,60 +1455,74 @@
       "n_train": 208,
       "n_validation": 40,
       "n_test": 40,
+      "tuning": {
+        "method": "RandomizedSearchCV on chronological validation block",
+        "tuned": true,
+        "n_iter": 45,
+        "best_val_mae": 0.07874031652804714,
+        "best_iteration": null
+      },
+      "best_params": {
+        "n_estimators": 400,
+        "min_samples_leaf": 8,
+        "max_features": 1.0,
+        "random_state": 42
+      },
       "validation_metrics": {
-        "mae": 0.08038962455915,
-        "rmse": 0.09511855019636571,
-        "r2": 0.36117886543895195,
+        "mae": 0.06399612920810786,
+        "rmse": 0.07526079474015535,
+        "r2": 0.6000677451870211,
         "n": 40
       },
       "test_metrics": {
-        "mae": 0.07518199250754365,
-        "rmse": 0.08896006484213874,
-        "r2": 0.22603581541504147,
+        "mae": 0.06938321771334226,
+        "rmse": 0.08369687801524635,
+        "r2": 0.3149075211364868,
         "n": 40
       },
       "interval_metrics": {
-        "picp_95": 0.325,
-        "mpiw_95": 0.09495983941029174,
+        "picp_95": 0.975,
+        "mpiw_95": 0.37906073783693217,
         "confidence_level": 0.95,
-        "method": "case bootstrap"
+        "method": "split-conformal (validation residuals) + case bootstrap",
+        "conformal_half_width": 0.18953036891846609
       },
       "feature_importance": [
         {
           "feature": "interest_rate_pct",
-          "importance": 0.649743999279291
+          "importance": 0.7483269044360445
         },
         {
           "feature": "debt_service_coverage",
-          "importance": 0.08131703302751211
+          "importance": 0.09965606191431095
         },
         {
           "feature": "commodity_price_index",
-          "importance": 0.0065278281013214645
+          "importance": 0.02047119942216883
         },
         {
           "feature": "temp_gs_c",
-          "importance": -0.0007132587505829125
+          "importance": 0.001226642930848254
         },
         {
           "feature": "yield_anomaly",
-          "importance": -0.0007876069342461544
+          "importance": -0.0009487113905106481
         },
         {
           "feature": "log_loan_exposure",
-          "importance": -0.009663932899650052
+          "importance": -0.002658117530282145
         },
         {
           "feature": "loan_exposure_musd",
-          "importance": -0.010944627464973322
+          "importance": -0.004724702091709809
         },
         {
           "feature": "rainfall_gs_mm",
-          "importance": -0.012394297972404522
+          "importance": -0.02287127051393768
         }
       ],
       "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/risk__combined__random_forest.pkl",
-      "trained_at": "2026-10-27T16:03:14.322640+00:00",
+      "trained_at": "2026-10-27T17:58:20.232822+00:00",
       "limitations": [
         "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
         "Results must not be quoted as empirical default probabilities.",
@@ -1309,7 +1536,7 @@
       "task": "risk",
       "feature_set": "combined",
       "model_id": "xgboost",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "target": "credit_stress_rate",
       "features": [
         "interest_rate_pct",
@@ -1328,60 +1555,77 @@
       "n_train": 208,
       "n_validation": 40,
       "n_test": 40,
+      "tuning": {
+        "method": "RandomizedSearchCV on chronological validation block",
+        "tuned": true,
+        "n_iter": 80,
+        "best_val_mae": 0.07924896985816957,
+        "best_iteration": 22
+      },
+      "best_params": {
+        "subsample": 0.7,
+        "reg_lambda": 5.0,
+        "n_estimators": 400,
+        "max_depth": 3,
+        "learning_rate": 0.12,
+        "colsample_bytree": 1.0,
+        "random_state": 42
+      },
       "validation_metrics": {
-        "mae": 0.0888645317261219,
-        "rmse": 0.10230036642341024,
-        "r2": 0.26107015113757914,
+        "mae": 0.06815194047117233,
+        "rmse": 0.08173250128839106,
+        "r2": 0.528329829305292,
         "n": 40
       },
       "test_metrics": {
-        "mae": 0.08407674862980843,
-        "rmse": 0.10092080922429282,
-        "r2": 0.003924791760456903,
+        "mae": 0.07100442213582994,
+        "rmse": 0.08483724152209603,
+        "r2": 0.29611167722320375,
         "n": 40
       },
       "interval_metrics": {
-        "picp_95": 0.425,
-        "mpiw_95": 0.12202963089570402,
+        "picp_95": 1.0,
+        "mpiw_95": 0.4492505803704262,
         "confidence_level": 0.95,
-        "method": "case bootstrap"
+        "method": "split-conformal (validation residuals) + case bootstrap",
+        "conformal_half_width": 0.22462528395104397
       },
       "feature_importance": [
         {
           "feature": "interest_rate_pct",
-          "importance": 0.626161667576027
+          "importance": 0.6453788471376758
         },
         {
           "feature": "debt_service_coverage",
-          "importance": 0.03626602652411
-        },
-        {
-          "feature": "commodity_price_index",
-          "importance": 0.013442829374915788
-        },
-        {
-          "feature": "rainfall_gs_mm",
-          "importance": 0.012027930556152056
+          "importance": 0.08653773156926856
         },
         {
           "feature": "yield_anomaly",
-          "importance": 0.010112169831646589
+          "importance": 0.004385612509914927
         },
         {
           "feature": "log_loan_exposure",
-          "importance": -0.0274133306542807
-        },
-        {
-          "feature": "temp_gs_c",
-          "importance": -0.031167927222816406
+          "importance": 0.0
         },
         {
           "feature": "loan_exposure_musd",
-          "importance": -0.12165108362691077
+          "importance": -0.000425168218931693
+        },
+        {
+          "feature": "temp_gs_c",
+          "importance": -0.0018067347404879697
+        },
+        {
+          "feature": "rainfall_gs_mm",
+          "importance": -0.004402370167337755
+        },
+        {
+          "feature": "commodity_price_index",
+          "importance": -0.005108305638778299
         }
       ],
       "artifact_path": "/mnt/c/Users/havis/OneDrive/Desktop/P&S/backend/model_registry/risk__combined__xgboost.pkl",
-      "trained_at": "2026-10-27T16:03:26.689166+00:00",
+      "trained_at": "2026-10-27T17:58:41.166749+00:00",
       "limitations": [
         "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
         "Results must not be quoted as empirical default probabilities.",
