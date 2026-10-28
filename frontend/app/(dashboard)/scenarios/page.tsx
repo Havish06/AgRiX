@@ -40,10 +40,16 @@ export default function ScenariosPage() {
       region_code: regionCode,
       crop_code: 'maize',
       scenario,
-      custom_params: {
-        rainfall_multiplier: rainfallMultiplier,
-        temperature_offset: temperatureOffset,
-      },
+      // Named presets are authoritative server-side; send free parameters only
+      // for the custom scenario so Dry/Heat/Severe are never overridden.
+      ...(scenario === 'custom'
+        ? {
+            custom_params: {
+              rainfall_multiplier: rainfallMultiplier,
+              temperature_offset: temperatureOffset,
+            },
+          }
+        : {}),
       n_simulations: 1000,
       confidence_level: 0.95,
     });

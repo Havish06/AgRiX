@@ -1,11 +1,12 @@
 'use client';
 
 import { AlertTriangle, FlaskConical } from 'lucide-react';
-import { useExperiments, useModels } from '@/lib/api/hooks';
+import { useExperiments, useModelComparison, useModels } from '@/lib/api/hooks';
 
 export default function ModelLabPage() {
   const models = useModels();
   const experiments = useExperiments();
+  const comparison = useModelComparison();
 
   return (
     <div className="animate-fade-in space-y-8">
@@ -15,19 +16,51 @@ export default function ModelLabPage() {
           Keep baseline, enriched model, validation split, and limitations in one recorded place.
         </p>
       </header>
-      <section className="panel-deep p-6 lg:p-8" aria-labelledby="experiment-heading">
-        <div className="flex items-start gap-4">
+      <section className="card panel-raised" aria-labelledby="experiment-heading">
+        <div className="mb-4 flex items-start gap-4">
           <FlaskConical className="mt-1 h-6 w-6 shrink-0 text-primary" aria-hidden="true" />
           <div>
             <h2 id="experiment-heading" className="font-serif text-heading-lg text-text">
               Finance-only vs combined
             </h2>
             <p className="mt-2 text-body text-text-muted">
-              The comparison is ready for a documented public yield source and a defined financial
-              target. Metrics will appear here after a reproducible run.
+              Held-out test metrics and calibrated interval coverage for the two risk feature sets
+              across the model zoo.
             </p>
           </div>
         </div>
+        {comparison.isSuccess && comparison.data.models.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Model</th>
+                  <th>Feature set</th>
+                  <th className="text-right">Test MAE</th>
+                  <th className="text-right">Test R²</th>
+                  <th className="text-right">PICP 95</th>
+                  <th className="text-right">MPIW 95</th>
+                </tr>
+              </thead>
+              <tbody>
+                {comparison.data.models
+                  .filter((row) => row.task === 'risk')
+                  .map((row) => (
+                    <tr key={row.registry_key}>
+                      <td>{row.model_id}</td>
+                      <td>{row.feature_set}</td>
+                      <td className="text-right font-mono">{row.test_mae.toFixed(4)}</td>
+                      <td className="text-right font-mono">{row.test_r2.toFixed(4)}</td>
+                      <td className="text-right font-mono">{row.picp_95.toFixed(2)}</td>
+                      <td className="text-right font-mono">{row.mpiw_95.toFixed(4)}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <UnavailableState loading={comparison.isLoading} />
+        )}
       </section>
       <section className="card panel-raised" aria-labelledby="models-heading">
         <h2 id="models-heading" className="mb-4 font-serif text-heading-md text-text">

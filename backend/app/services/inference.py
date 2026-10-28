@@ -261,16 +261,20 @@ def run_scenario(
     if region_rows.empty:
         raise KeyError(f"No climate history for region '{region_code}'")
 
-    params = custom_params or {}
     presets = {
         "normal": (1.0, 0.0),
         "dry": (0.7, 0.0),
         "heat": (1.0, 2.5),
         "severe": (0.6, 3.5),
     }
-    rainfall_multiplier, temperature_offset = presets.get(scenario, (1.0, 0.0))
-    rainfall_multiplier = params.get("rainfall_multiplier", rainfall_multiplier)
-    temperature_offset = params.get("temperature_offset", temperature_offset)
+    if scenario == "custom":
+        # Free parameters apply only to the custom scenario; the named presets
+        # stay authoritative so Dry/Heat/Severe cannot be silently overridden.
+        params = custom_params or {}
+        rainfall_multiplier = params.get("rainfall_multiplier", 1.0)
+        temperature_offset = params.get("temperature_offset", 0.0)
+    else:
+        rainfall_multiplier, temperature_offset = presets.get(scenario, presets["normal"])
 
     baseline_rain = float(region_rows["rainfall_gs_mm"].mean())
     baseline_temp = float(region_rows["temp_gs_c"].mean())
@@ -316,6 +320,8 @@ def run_scenario(
         "confidence_level": confidence_level,
         "stress_inputs": {
             "region_code": region_code,
+            "rainfall_multiplier": rainfall_multiplier,
+            "temperature_offset": temperature_offset,
             "baseline_rainfall_mm": baseline_rain,
             "baseline_temperature_c": baseline_temp,
             "stress_rainfall_mm": stress_rain,

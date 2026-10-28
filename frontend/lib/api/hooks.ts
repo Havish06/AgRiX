@@ -77,6 +77,13 @@ export function useModels() {
   });
 }
 
+export function useModelComparison() {
+  return useQuery({
+    queryKey: ['models', 'comparison'] as const,
+    queryFn: api.getModelComparison,
+  });
+}
+
 export function useModelEvaluation(params: Record<string, string>) {
   return useQuery({
     queryKey: queryKeys.modelEvaluation(params),

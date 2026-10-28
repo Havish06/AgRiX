@@ -6,6 +6,7 @@ import type {
   ForecastResponse,
   HealthResponse,
   ModelCard,
+  ModelComparisonResponse,
   RiskAssessmentRequest,
   RiskAssessmentResponse,
   ScenarioRequest,
@@ -40,9 +41,20 @@ async function fetchWrapper<T>(endpoint: string, options: RequestInit = {}): Pro
   });
 
   if (!response.ok) {
-    let errorData: { message?: string; code?: string; details?: Record<string, unknown> } = {};
+    let errorData: {
+      message?: string;
+      detail?: string;
+      code?: string;
+      details?: Record<string, unknown>;
+    } = {};
     try {
-      errorData = await response.json();
+      const parsed: typeof errorData = await response.json();
+      // FastAPI reports errors as { detail }; normalise to { message } so the
+      // UI shows the backend's explanation instead of a bare status line.
+      if (typeof parsed?.detail === 'string') {
+        parsed.message = parsed.message ?? parsed.detail;
+      }
+      errorData = parsed;
     } catch {
       // Ignore JSON parse errors
     }
@@ -100,6 +112,7 @@ export const api = {
   evaluateModel: (params: Record<string, string>) =>
     fetchWrapper<unknown>(`/api/models/evaluate?${new URLSearchParams(params)}`),
   listModels: () => fetchWrapper<ModelCard[]>('/api/models/list'),
+  getModelComparison: () => fetchWrapper<ModelComparisonResponse>('/api/models/comparison'),
 
   // Predictions
   predictYield: (request: YieldPredictionRequest) =>
@@ -128,8 +141,8 @@ export const api = {
     }),
 
   // Explanations
-  getExplanations: (params: Record<string, string>) =>
-    fetchWrapper<unknown>(`/api/explanations?${new URLSearchParams(params)}`),
+  getExplanations: (data: { registry_key?: string }) =>
+    fetchWrapper<unknown>('/api/explanations', { method: 'POST', body: JSON.stringify(data) }),
 
   // Research
   listExperiments: () => fetchWrapper<ExperimentRecord[]>('/api/research/experiments'),

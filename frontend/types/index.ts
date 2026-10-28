@@ -111,6 +111,33 @@ export interface ScenarioResponse {
   results: ScenarioResult[];
   n_simulations: number;
   confidence_level: number;
+  stress_inputs?: {
+    region_code: string;
+    rainfall_multiplier: number;
+    temperature_offset: number;
+    baseline_rainfall_mm: number;
+    baseline_temperature_c: number;
+    stress_rainfall_mm: number;
+    stress_temperature_c: number;
+  };
+  label?: string;
+}
+
+export interface ModelComparisonRow {
+  registry_key: string;
+  task: string;
+  feature_set: string;
+  model_id: string;
+  test_mae: number;
+  test_rmse: number;
+  test_r2: number;
+  picp_95: number;
+  mpiw_95: number;
+  synthetic_target: boolean;
+}
+
+export interface ModelComparisonResponse {
+  models: ModelComparisonRow[];
 }
 
 export interface ExperimentRecord {

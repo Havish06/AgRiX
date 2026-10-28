@@ -1,11 +1,20 @@
 'use client';
 
-import { AlertTriangle, BookOpen, Database, GitBranch, Shield } from 'lucide-react';
+import {
+  AlertTriangle,
+  BookOpen,
+  CheckCircle2,
+  Database,
+  GitBranch,
+  Shield,
+} from 'lucide-react';
 import { useDatasets, useExperiments } from '@/lib/api/hooks';
 
 export default function ResearchPage() {
   const datasets = useDatasets();
   const experiments = useExperiments();
+  const datasetsReady = datasets.isSuccess && datasets.data.length > 0;
+  const experimentsReady = experiments.isSuccess && experiments.data.length > 0;
 
   return (
     <div className="animate-fade-in space-y-8">
@@ -18,8 +27,8 @@ export default function ResearchPage() {
       <div className="grid gap-6 md:grid-cols-2">
         <InfoCard icon={Database} title="Public data registry">
           <p>
-            The registry is empty until a public response is fetched, normalized, cached, and
-            checksum-verified.
+            Snapshots are registered only after a public response is fetched, normalized, cached,
+            and checksum-verified.
           </p>
           {datasets.isSuccess && datasets.data.length > 0 ? (
             <ul className="mt-4 space-y-2">
@@ -76,18 +85,37 @@ export default function ResearchPage() {
           <BookOpen className="h-5 w-5 text-primary" aria-hidden="true" />
           Methodology readiness
         </h2>
-        <p className="text-body text-text-muted">
-          NASA POWER public climate ingestion is available. A public agricultural yield source and a
-          financial-risk target still need to be registered before the central finance-only versus
-          combined experiment can run.
-        </p>
-        <div className="mt-4 flex items-start gap-3 rounded-[4px] border border-risk-moderate bg-surface p-4 text-body-sm text-text">
-          <AlertTriangle
-            className="mt-0.5 h-5 w-5 shrink-0 text-risk-moderate"
-            aria-hidden="true"
-          />
-          No scientific metrics are currently available in this workspace.
-        </div>
+        {datasetsReady && experimentsReady ? (
+          <>
+            <p className="text-body text-text-muted">
+              Public climate, yield, and credit-panel snapshots are registered and the model zoo has
+              been trained on a chronological split. Held-out test metrics and calibrated interval
+              coverage are recorded for every experiment above.
+            </p>
+            <div className="mt-4 flex items-start gap-3 rounded-[4px] border border-primary bg-surface p-4 text-body-sm text-text">
+              <CheckCircle2
+                className="mt-0.5 h-5 w-5 shrink-0 text-primary"
+                aria-hidden="true"
+              />
+              {experiments.data.length} experiment records registered with test metrics.
+            </div>
+          </>
+        ) : (
+          <>
+            <p className="text-body text-text-muted">
+              NASA POWER public climate ingestion is available. Register the remaining public
+              snapshots and run the pipeline before the central finance-only versus combined
+              experiment can report metrics.
+            </p>
+            <div className="mt-4 flex items-start gap-3 rounded-[4px] border border-risk-moderate bg-surface p-4 text-body-sm text-text">
+              <AlertTriangle
+                className="mt-0.5 h-5 w-5 shrink-0 text-risk-moderate"
+                aria-hidden="true"
+              />
+              No scientific metrics are available yet — run the pipeline from Settings.
+            </div>
+          </>
+        )}
       </section>
     </div>
   );
