@@ -87,17 +87,17 @@ class ScenarioRequest(BaseModel):
 
 
 class HypothesisRequest(BaseModel):
-    model_config = ConfigDict(extra=\"forbid\")
+    model_config = ConfigDict(extra="forbid")
 
-    dataset: str = \"risk_panel\"
+    dataset: str = "risk_panel"
     column: str
-    group_column: str = \"region_code\"
+    group_column: str = "region_code"
     group_a: str
     group_b: str
 
 
 class AdvisoryRequest(BaseModel):
-    model_config = ConfigDict(extra=\"forbid\")
+    model_config = ConfigDict(extra="forbid")
 
     region_code: str
     crop_code: str
@@ -106,7 +106,7 @@ class AdvisoryRequest(BaseModel):
 
 
 class AdvisoryResponse(BaseModel):
-    model_config = ConfigDict(extra=\"forbid\")
+    model_config = ConfigDict(extra="forbid")
 
     region_code: str
     crop_code: str
@@ -114,13 +114,6 @@ class AdvisoryResponse(BaseModel):
     baseline_yield_t_ha: float
     actions: list[dict[str, Any]]
     summary: dict[str, Any]
-    model_config = ConfigDict(extra="forbid")
-
-    dataset: str = "risk_panel"
-    column: str
-    group_column: str = "region_code"
-    group_a: str
-    group_b: str
 
 
 def _pipeline_required() -> HTTPException:
@@ -428,8 +421,42 @@ async def explanations(payload: dict[str, str]) -> dict[str, Any]:
 
 
 # ---------------------------------------------------------------------------
-# \n\n@router.post(\"/advisory\", tags=[\"Advisory\"])\nasync def advisory_endpoint(payload: AdvisoryRequest) -> AdvisoryResponse:\n    \"\"\"Fuse risk + scenarios + forecast + seasonal calendar into dated banking actions.\n\n    Returns a structured advisory payload that a credit officer or portfolio\n    manager can act on.  Each action has a date, category, title, and rationale\n    that references the underlying data sources.\n    \"\"\"\n    result = await asyncio.to_thread(\n        advisory,\n        region_code=payload.region_code,\n        crop_code=payload.crop_code,\n        horizon=payload.horizon,\n        n_simulations=payload.n_simulations,\n    )\n    return AdvisoryResponse(\n        region_code=payload.region_code,\n        crop_code=payload.crop_code,\n        generated_at=result[\"generated_at\"],\n        baseline_yield_t_ha=result[\"baseline_yield_t_ha\"],\n        actions=result[\"actions\"],\n        summary=result[\"summary\"],\n    )\n\n# ---------------------------------------------------------------------------\n# Research registry
+# Advisory
 # ---------------------------------------------------------------------------
+
+
+@router.post("/advisory", tags=["Advisory"])
+async def advisory_endpoint(payload: AdvisoryRequest) -> AdvisoryResponse:
+    """Fuse risk + scenarios + forecast + seasonal calendar into dated banking actions.
+
+    Returns a structured advisory payload that a credit officer or portfolio
+    manager can act on.  Each action has a date, category, title, and rationale
+    that references the underlying data sources.
+    """
+    _require_snapshots()
+    _require_registry()
+    try:
+        result = await asyncio.to_thread(
+            advisory.advisory,
+            region_code=payload.region_code,
+            crop_code=payload.crop_code,
+            horizon=payload.horizon,
+            n_simulations=payload.n_simulations,
+        )
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Advisory generation failed: {exc}") from exc
+    return AdvisoryResponse(
+        region_code=result["region_code"],
+        crop_code=result["crop_code"],
+        generated_at=result["generated_at"],
+        baseline_yield_t_ha=result["baseline_yield_t_ha"],
+        actions=result["actions"],
+        summary=result["summary"],
+    )
+
+
+# ---------------------------------------------------------------------------
+# Research registry
 # ---------------------------------------------------------------------------
 
 

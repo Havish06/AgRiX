@@ -137,10 +137,21 @@ export function useAdvisory(regionCode: string, cropCode: string, options: { hor
   });
 }
 
-export function useAdvisoryList(options: { horizon?: number; n_simulations?: number }) {
+export function useAdvisoryList(
+  regionCode: string,
+  cropCode: string,
+  options: { horizon?: number; n_simulations?: number } = {}
+) {
   return useQuery({
-    queryKey: ['advisory_list', options] as const,
-    queryFn: () => api.getAdvisory({ horizon: options.horizon, n_simulations: options.n_simulations }),
+    queryKey: ['advisory_list', regionCode, cropCode, options] as const,
+    queryFn: () =>
+      api.getAdvisory({
+        region_code: regionCode,
+        crop_code: cropCode,
+        horizon: options.horizon,
+        n_simulations: options.n_simulations,
+      }),
+    enabled: !!regionCode && !!cropCode,
     staleTime: 5 * 60 * 1000,
   });
 }
@@ -183,6 +194,8 @@ export function useRunScenario() {
     mutationFn: api.runScenario,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['scenarios'] });
+      queryClient.invalidateQueries({ queryKey: ['advisory'] });
+      queryClient.invalidateQueries({ queryKey: ['advisory_list'] });
     },
   });
 }

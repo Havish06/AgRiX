@@ -13,6 +13,9 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
+from app.core.constants import DEFAULT_CONFIDENCE_LEVEL
+from app.services import inference, store
+
 def _resolve_crop(yield_matrix: pd.DataFrame, crop_code: str) -> str:
     """Return the requested crop, or the only available crop when the
     requested one is absent."""
@@ -74,13 +77,37 @@ def advisory(
     horizon: int = 3,
     n_simulations: int = 1000,
     confidence_level: float = DEFAULT_CONFIDENCE_LEVEL,
-# --- Construct dated banking actions ---
+) -> dict[str, Any]:
+    """Fuse risk + scenarios + forecast + seasonal calendar into dated banking actions."""
+    # --- Gather inputs from the inference layer ---
+    forecast_results = inference.forecast(crop_code=crop_code, horizon=horizon)
+    scenario_results = inference.run_scenario(
+        region_code=region_code,
+        crop_code=crop_code,
+        scenario="normal",
+        n_simulations=n_simulations,
+        confidence_level=confidence_level,
+    )
+
+    state_climate = store.load_feature_matrix("state_climate")
+    calendar = _build_seasonal_calendar(region_code, state_climate if state_climate is not None else pd.DataFrame())
+
+    yield_matrix = store.load_feature_matrix("yield_matrix")
+    if yield_matrix is not None:
+        crop_rows = yield_matrix[yield_matrix["crop_code"] == crop_code]
+        baseline_yield = float(crop_rows["yield_t_ha"].mean()) if not crop_rows.empty else 0.0
+    else:
+        baseline_yield = 0.0
+
+    # --- Construct dated banking actions ---
     actions: list[dict[str, Any]] = []
 
     # Action group 1: Yield forecast-driven actions
-    forecast_mean = float(np.mean(forecast_results["forecast"]))
-    forecast_lower = float(np.min(forecast_results["forecast"]))
-    forecast_upper = float(np.max(forecast_results["forecast"]))
+    forecast_points = forecast_results.get("forecast", [])
+    forecast_yields = [p["yield"] for p in forecast_points]
+    forecast_mean = float(np.mean(forecast_yields)) if forecast_yields else 0.0
+    forecast_lower = float(min(p["lower_bound"] for p in forecast_points)) if forecast_points else 0.0
+    forecast_upper = float(max(p["upper_bound"] for p in forecast_points)) if forecast_points else 0.0
 
     if forecast_mean < baseline_yield * 0.9:
         actions.append({
@@ -89,7 +116,7 @@ def advisory(
             "title": "Yield forecast below baseline",
             "rationale": (
                 f"Projected yield for {crop_code} in {region_code} is {forecast_mean:.2f} t/ha "
-                f"({((forecast_mean / baseline_yield - 1) * 100:.1f}% below baseline).  "
+                f"({(forecast_mean / baseline_yield - 1) * 100:.1f}% below baseline).  "
                 f"Interval: [{forecast_lower:.2f}, {forecast_upper:.2f}] t/ha. "
                 f"Consider tightening credit limits or requiring additional collateral."
             ),
