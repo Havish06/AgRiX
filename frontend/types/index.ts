@@ -196,3 +196,34 @@ export interface HealthResponse {
     cache: 'connected' | 'disconnected';
   };
 }
+
+export interface AdvisoryRequest {
+  region_code: string;
+  crop_code: string;
+  horizon?: number;
+  n_simulations?: number;
+}
+
+export interface AdvisoryResponse {
+  region_code: string;
+  crop_code: string;
+  generated_at: string;
+  baseline_yield_t_ha: number;
+  actions: AdvisoryAction[];
+  summary: AdvisorySummary;
+}
+
+export interface AdvisoryAction {
+  date: string;
+  category: string;
+  title: string;
+  rationale: string;
+  source: string;
+  [key: string]: any;
+}
+
+export interface AdvisorySummary {
+  total_actions: number;
+  high_priority: number;
+  source_integration: string[];
+}

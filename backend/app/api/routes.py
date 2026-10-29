@@ -13,7 +13,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from app.core.constants import DEFAULT_CONFIDENCE_LEVEL
 from app.services import statistics as stats_service
-from app.services import inference, ingest, store, training
+from app.services import inference, advisory, ingest, store, training
 
 router = APIRouter()
 
@@ -87,6 +87,33 @@ class ScenarioRequest(BaseModel):
 
 
 class HypothesisRequest(BaseModel):
+    model_config = ConfigDict(extra=\"forbid\")
+
+    dataset: str = \"risk_panel\"
+    column: str
+    group_column: str = \"region_code\"
+    group_a: str
+    group_b: str
+
+
+class AdvisoryRequest(BaseModel):
+    model_config = ConfigDict(extra=\"forbid\")
+
+    region_code: str
+    crop_code: str
+    horizon: int = Field(default=3, ge=1, le=10)
+    n_simulations: int = Field(default=1000, ge=100, le=10000)
+
+
+class AdvisoryResponse(BaseModel):
+    model_config = ConfigDict(extra=\"forbid\")
+
+    region_code: str
+    crop_code: str
+    generated_at: str
+    baseline_yield_t_ha: float
+    actions: list[dict[str, Any]]
+    summary: dict[str, Any]
     model_config = ConfigDict(extra="forbid")
 
     dataset: str = "risk_panel"
@@ -401,7 +428,8 @@ async def explanations(payload: dict[str, str]) -> dict[str, Any]:
 
 
 # ---------------------------------------------------------------------------
-# Research registry
+# \n\n@router.post(\"/advisory\", tags=[\"Advisory\"])\nasync def advisory_endpoint(payload: AdvisoryRequest) -> AdvisoryResponse:\n    \"\"\"Fuse risk + scenarios + forecast + seasonal calendar into dated banking actions.\n\n    Returns a structured advisory payload that a credit officer or portfolio\n    manager can act on.  Each action has a date, category, title, and rationale\n    that references the underlying data sources.\n    \"\"\"\n    result = await asyncio.to_thread(\n        advisory,\n        region_code=payload.region_code,\n        crop_code=payload.crop_code,\n        horizon=payload.horizon,\n        n_simulations=payload.n_simulations,\n    )\n    return AdvisoryResponse(\n        region_code=payload.region_code,\n        crop_code=payload.crop_code,\n        generated_at=result[\"generated_at\"],\n        baseline_yield_t_ha=result[\"baseline_yield_t_ha\"],\n        actions=result[\"actions\"],\n        summary=result[\"summary\"],\n    )\n\n# ---------------------------------------------------------------------------\n# Research registry
+# ---------------------------------------------------------------------------
 # ---------------------------------------------------------------------------
 
 

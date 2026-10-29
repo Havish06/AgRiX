@@ -13,6 +13,8 @@ import type {
   ScenarioResponse,
   YieldPredictionRequest,
   YieldPredictionResponse,
+  AdvisoryRequest,
+  AdvisoryResponse,
 } from '@/types';
 
 const API_BASE = env.NEXT_PUBLIC_API_URL;
@@ -146,6 +148,13 @@ export const api = {
 
   // Research
   listExperiments: () => fetchWrapper<ExperimentRecord[]>('/api/research/experiments'),
+
+  // Advisory
+  getAdvisory: (request: AdvisoryRequest) =>
+    fetchWrapper<AdvisoryResponse>('/api/advisory', {
+      method: 'POST',
+      body: JSON.stringify(request),
+    }),
 };
 
 export { ApiError };

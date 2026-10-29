@@ -1,5 +1,5 @@
 {
-  "trained_at": "2026-10-28T14:39:58.747589+00:00",
+  "trained_at": "2026-10-28T15:19:39.753040+00:00",
   "seed": 42,
   "yield_split": {
     "train_end": 2014,
@@ -66,7 +66,7 @@
         }
       ],
       "artifact_path": "C:\\Users\\havis\\OneDrive\\Desktop\\P&S\\backend\\model_registry\\yield__climate_only__mean_baseline.pkl",
-      "trained_at": "2026-10-28T14:28:11.987650+00:00",
+      "trained_at": "2026-10-28T15:07:06.753045+00:00",
       "limitations": [
         "National-level aggregates; no sub-national or farm-level resolution.",
         "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
@@ -132,7 +132,7 @@
         }
       ],
       "artifact_path": "C:\\Users\\havis\\OneDrive\\Desktop\\P&S\\backend\\model_registry\\yield__climate_only__linear.pkl",
-      "trained_at": "2026-10-28T14:28:12.454970+00:00",
+      "trained_at": "2026-10-28T15:07:07.135861+00:00",
       "limitations": [
         "National-level aggregates; no sub-national or farm-level resolution.",
         "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
@@ -201,7 +201,7 @@
         }
       ],
       "artifact_path": "C:\\Users\\havis\\OneDrive\\Desktop\\P&S\\backend\\model_registry\\yield__climate_only__ridge.pkl",
-      "trained_at": "2026-10-28T14:28:13.002075+00:00",
+      "trained_at": "2026-10-28T15:07:07.676174+00:00",
       "limitations": [
         "National-level aggregates; no sub-national or farm-level resolution.",
         "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
@@ -272,7 +272,7 @@
         }
       ],
       "artifact_path": "C:\\Users\\havis\\OneDrive\\Desktop\\P&S\\backend\\model_registry\\yield__climate_only__random_forest.pkl",
-      "trained_at": "2026-10-28T14:29:19.449649+00:00",
+      "trained_at": "2026-10-28T15:08:13.992368+00:00",
       "limitations": [
         "National-level aggregates; no sub-national or farm-level resolution.",
         "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
@@ -346,7 +346,7 @@
         }
       ],
       "artifact_path": "C:\\Users\\havis\\OneDrive\\Desktop\\P&S\\backend\\model_registry\\yield__climate_only__xgboost.pkl",
-      "trained_at": "2026-10-28T14:29:28.483650+00:00",
+      "trained_at": "2026-10-28T15:08:31.179451+00:00",
       "limitations": [
         "National-level aggregates; no sub-national or farm-level resolution.",
         "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
@@ -417,7 +417,7 @@
         }
       ],
       "artifact_path": "C:\\Users\\havis\\OneDrive\\Desktop\\P&S\\backend\\model_registry\\yield__climate_and_trend__mean_baseline.pkl",
-      "trained_at": "2026-10-28T14:29:28.504697+00:00",
+      "trained_at": "2026-10-28T15:08:31.228233+00:00",
       "limitations": [
         "National-level aggregates; no sub-national or farm-level resolution.",
         "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
@@ -488,7 +488,7 @@
         }
       ],
       "artifact_path": "C:\\Users\\havis\\OneDrive\\Desktop\\P&S\\backend\\model_registry\\yield__climate_and_trend__linear.pkl",
-      "trained_at": "2026-10-28T14:29:28.655091+00:00",
+      "trained_at": "2026-10-28T15:08:31.610350+00:00",
       "limitations": [
         "National-level aggregates; no sub-national or farm-level resolution.",
         "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
@@ -562,7 +562,7 @@
         }
       ],
       "artifact_path": "C:\\Users\\havis\\OneDrive\\Desktop\\P&S\\backend\\model_registry\\yield__climate_and_trend__ridge.pkl",
-      "trained_at": "2026-10-28T14:29:28.856860+00:00",
+      "trained_at": "2026-10-28T15:08:32.139453+00:00",
       "limitations": [
         "National-level aggregates; no sub-national or farm-level resolution.",
         "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
@@ -638,7 +638,7 @@
         }
       ],
       "artifact_path": "C:\\Users\\havis\\OneDrive\\Desktop\\P&S\\backend\\model_registry\\yield__climate_and_trend__random_forest.pkl",
-      "trained_at": "2026-10-28T14:31:38.069591+00:00",
+      "trained_at": "2026-10-28T15:10:52.635765+00:00",
       "limitations": [
         "National-level aggregates; no sub-national or farm-level resolution.",
         "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
@@ -717,7 +717,7 @@
         }
       ],
       "artifact_path": "C:\\Users\\havis\\OneDrive\\Desktop\\P&S\\backend\\model_registry\\yield__climate_and_trend__xgboost.pkl",
-      "trained_at": "2026-10-28T14:31:50.423684+00:00",
+      "trained_at": "2026-10-28T15:11:01.283161+00:00",
       "limitations": [
         "National-level aggregates; no sub-national or farm-level resolution.",
         "Growing-season rainfall/temperature only; extremes and planting dates not modelled.",
@@ -798,7 +798,7 @@
         }
       ],
       "artifact_path": "C:\\Users\\havis\\OneDrive\\Desktop\\P&S\\backend\\model_registry\\risk__finance_only__mean_baseline.pkl",
-      "trained_at": "2026-10-28T14:31:50.495351+00:00",
+      "trained_at": "2026-10-28T15:11:01.324056+00:00",
       "limitations": [
         "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
         "Results must not be quoted as empirical default probabilities.",
@@ -878,7 +878,7 @@
         }
       ],
       "artifact_path": "C:\\Users\\havis\\OneDrive\\Desktop\\P&S\\backend\\model_registry\\risk__finance_only__linear.pkl",
-      "trained_at": "2026-10-28T14:31:50.822515+00:00",
+      "trained_at": "2026-10-28T15:11:01.509864+00:00",
       "limitations": [
         "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
         "Results must not be quoted as empirical default probabilities.",
@@ -961,7 +961,7 @@
         }
       ],
       "artifact_path": "C:\\Users\\havis\\OneDrive\\Desktop\\P&S\\backend\\model_registry\\risk__finance_only__ridge.pkl",
-      "trained_at": "2026-10-28T14:31:51.447056+00:00",
+      "trained_at": "2026-10-28T15:11:01.794922+00:00",
       "limitations": [
         "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
         "Results must not be quoted as empirical default probabilities.",
@@ -1046,7 +1046,7 @@
         }
       ],
       "artifact_path": "C:\\Users\\havis\\OneDrive\\Desktop\\P&S\\backend\\model_registry\\risk__finance_only__random_forest.pkl",
-      "trained_at": "2026-10-28T14:35:01.996775+00:00",
+      "trained_at": "2026-10-28T15:14:20.113488+00:00",
       "limitations": [
         "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
         "Results must not be quoted as empirical default probabilities.",
@@ -1134,7 +1134,7 @@
         }
       ],
       "artifact_path": "C:\\Users\\havis\\OneDrive\\Desktop\\P&S\\backend\\model_registry\\risk__finance_only__xgboost.pkl",
-      "trained_at": "2026-10-28T14:35:53.378224+00:00",
+      "trained_at": "2026-10-28T15:15:08.769123+00:00",
       "limitations": [
         "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
         "Results must not be quoted as empirical default probabilities.",
@@ -1229,7 +1229,7 @@
         }
       ],
       "artifact_path": "C:\\Users\\havis\\OneDrive\\Desktop\\P&S\\backend\\model_registry\\risk__combined__mean_baseline.pkl",
-      "trained_at": "2026-10-28T14:35:53.453857+00:00",
+      "trained_at": "2026-10-28T15:15:08.871751+00:00",
       "limitations": [
         "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
         "Results must not be quoted as empirical default probabilities.",
@@ -1324,7 +1324,7 @@
         }
       ],
       "artifact_path": "C:\\Users\\havis\\OneDrive\\Desktop\\P&S\\backend\\model_registry\\risk__combined__linear.pkl",
-      "trained_at": "2026-10-28T14:35:53.810800+00:00",
+      "trained_at": "2026-10-28T15:15:09.470260+00:00",
       "limitations": [
         "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
         "Results must not be quoted as empirical default probabilities.",
@@ -1422,7 +1422,7 @@
         }
       ],
       "artifact_path": "C:\\Users\\havis\\OneDrive\\Desktop\\P&S\\backend\\model_registry\\risk__combined__ridge.pkl",
-      "trained_at": "2026-10-28T14:35:54.225434+00:00",
+      "trained_at": "2026-10-28T15:15:10.309047+00:00",
       "limitations": [
         "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
         "Results must not be quoted as empirical default probabilities.",
@@ -1522,7 +1522,7 @@
         }
       ],
       "artifact_path": "C:\\Users\\havis\\OneDrive\\Desktop\\P&S\\backend\\model_registry\\risk__combined__random_forest.pkl",
-      "trained_at": "2026-10-28T14:39:21.309903+00:00",
+      "trained_at": "2026-10-28T15:19:01.932028+00:00",
       "limitations": [
         "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
         "Results must not be quoted as empirical default probabilities.",
@@ -1625,7 +1625,7 @@
         }
       ],
       "artifact_path": "C:\\Users\\havis\\OneDrive\\Desktop\\P&S\\backend\\model_registry\\risk__combined__xgboost.pkl",
-      "trained_at": "2026-10-28T14:39:58.742548+00:00",
+      "trained_at": "2026-10-28T15:19:39.746441+00:00",
       "limitations": [
         "Target is a SYNTHETIC credit-stress proxy, not observed loan defaults.",
         "Results must not be quoted as empirical default probabilities.",

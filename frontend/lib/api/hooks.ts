@@ -128,6 +128,23 @@ export function useScenario(request: ScenarioRequest) {
   });
 }
 
+export function useAdvisory(regionCode: string, cropCode: string, options: { horizon?: number; n_simulations?: number }) {
+  return useQuery({
+    queryKey: ['advisory', regionCode, cropCode, options] as const,
+    queryFn: () => api.getAdvisory({ region_code: regionCode, crop_code: cropCode, horizon: options.horizon, n_simulations: options.n_simulations }),
+    enabled: !!regionCode && !!cropCode,
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useAdvisoryList(options: { horizon?: number; n_simulations?: number }) {
+  return useQuery({
+    queryKey: ['advisory_list', options] as const,
+    queryFn: () => api.getAdvisory({ horizon: options.horizon, n_simulations: options.n_simulations }),
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
 export function useExperiments() {
   return useQuery({
     queryKey: queryKeys.experiments,
